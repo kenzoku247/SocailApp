@@ -1,0 +1,87 @@
+.Post {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--inputColor);
+    border-radius: 1rem;
+    gap: 1rem;
+}
+
+.PostHeader {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.LeftPart {
+    display: flex;
+    gap: 1rem;
+}
+
+
+.Avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.NameUser {
+    transform: translateY(3px);
+}
+
+.NameUser>h6>a {
+    text-decoration: none;
+    font-size: 15px;
+}
+
+
+.dropdown>button>img {
+    width: 15px;
+    height: 15px;
+    gap: 1rem;
+}
+
+.material-icons {
+    justify-content: flex-end;
+}
+
+.Post>img {
+    width: 100%;
+    max-height: 20rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.PostReact {
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+}
+
+.Like {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PostReact>div>img {
+    width: 30px;
+    height: 30px;
+}
+
+.p-button {
+    padding: 0 1rem;
+}

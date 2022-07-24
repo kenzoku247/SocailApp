@@ -1,0 +1,59 @@
+.CommentCard {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.Comment_Header {
+    display: flex;
+    gap: 0.5rem;
+    
+    align-items: center;
+    
+}
+
+.NameUser{
+    font-size: 0.8rem;
+    text-decoration: none;  
+}
+
+.NameUser>h6{
+    font-size: 0.8rem;
+}
+
+.Comment_Header>img{
+    width: 30px;
+    height: 30px;
+}
+
+.Comment_Content {
+    display: flex;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--hrColor);
+}
+
+.Content {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.Comment_Content_Footer {
+    display: flex;
+    gap: 1rem;
+}
+
+.Right_Part{
+    gap: 0.5rem;
+}
+
+.Emoji_Edit {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+
+
+

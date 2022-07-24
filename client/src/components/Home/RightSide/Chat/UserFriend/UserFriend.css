@@ -1,0 +1,23 @@
+.UserFriend {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.UserFriend_Image {
+    border-radius: 50%;
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+.UserFriend_Link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.UserFriend_Name>span:nth-of-type(1) {
+    font-weight: bold;
+
+}

@@ -1,0 +1,229 @@
+.Auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 4rem;
+    position: relative;
+}
+
+.Auth>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.Auth-left {
+    gap: 2rem;
+
+}
+
+.Auth-left>img {
+    width: 4rem;
+    height: 4rem;
+
+}
+
+.Auth-right {
+    gap: 2rem;
+}
+
+.Auth-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.WebName {
+    gap: 1rem;
+}
+
+.Title-Web {
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    background-color: red;
+    background-image: var(--buttonBg);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    line-height: normal;
+}
+
+.WebName>h6 {
+    font-size: 0.85rem;
+
+}
+
+.InfoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.AuthForm>h3{
+    font-family: 'Inter', sans-serif;
+    font-weight: 520;
+}
+
+.checkValid {
+    display: flex;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    justify-content:space-between;
+
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.InfoInput {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+    width: 100%;
+
+}
+
+.InfoLine {
+    display: flex;
+    gap: 1rem;
+    height: 2rem;
+    width: 90%;
+}
+
+.InfoForm>div>div {
+    display: flex;
+    gap: 1rem;
+    height: 2rem;
+    width: 90%;
+}
+
+.AuthForm {
+    background-color: var(--cardColor);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.AuthForm>div {
+    width: 100%;
+    align-items: center;
+    /* justify-content: center; */
+
+}
+
+.AuthForm>div>div {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.Password {
+    position: relative;
+}
+
+.Password>small {
+    font-size: 0.7rem;
+    position: absolute;
+    cursor: pointer;
+    right: 1rem;   
+}
+
+
+
+.ConfirmPassword {
+    position: relative;
+}
+
+.ConfirmPassword>small {
+    font-size: 0.7rem;
+    position: absolute;
+    cursor: pointer;
+    right: 1rem;   
+}
+
+.InfoButton {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    width: 6rem;
+    height: 2rem;
+    align-self: flex-end;
+}
+
+.VerifyButton{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    height: 2rem;
+    align-self: flex-end;
+}
+
+.Gender {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.Gender>label{
+    padding: 1rem;
+    background-color: var(--inputColor);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.radioInput {
+    cursor: pointer;
+}
+
+.Redirect{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.ForGot_Footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.ForGot_Footer>img {
+    width: 1rem;
+    height: 1rem;
+    
+}
+
+.ResetForm {
+    background-color: var(--cardColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.Small_Reset{
+    bottom: 20px;
+}
+
+.LoginWithGoogle {
+    margin-top: -1.5rem;
+}
+
+

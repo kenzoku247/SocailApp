@@ -1,0 +1,15 @@
+.CommentMenu {
+
+}
+
+.dropdown-item {
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.cm-button {
+    padding-left: unset;
+    padding-right: unset;  
+}

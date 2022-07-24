@@ -1,0 +1,12 @@
+.InputComment {
+
+}
+
+.Comment_Input {
+    display: flex;
+    gap: 0.5rem;
+    border-radius: 0.4rem;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    align-items: center;
+}

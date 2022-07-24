@@ -1,0 +1,125 @@
+.ModalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.ModalForm>h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ModalForm>label {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    /* justify-content: center; */
+    
+}
+
+.ModalForm>div>label {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    /* justify-content: center; */
+    
+}
+
+.ModalForm>label>textarea {
+    margin-left: 40px;
+}
+
+.ModalForm>label>select {
+    margin-left: 25px;
+}
+
+
+.LengthFirstName {
+    position: absolute;
+    right: 27rem;
+    font-size: 0.7rem;
+}
+
+.LengthLastName{
+    position: absolute;
+    right: 2rem;
+    font-size: 0.7rem;
+}
+
+.LengthStory {
+    position: absolute;
+    right: 2rem;
+    bottom: 14rem;
+    font-size: 0.7rem;
+}
+
+.NameModal {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.NameModal>label {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ModalInput {
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+}
+
+.Website-Gender {
+    display: flex;
+    gap: 1rem;
+    
+    justify-content:space-between;
+    align-items: center;
+}
+
+.Website-Gender>label {
+    flex: 1;
+}
+
+.Website-Gender>label>input {
+    margin-left: 20px;
+}
+
+.Website-Gender>label>select{
+    margin-left: 24px;
+}
+
+.ImageModal {
+    display: flex;
+    gap: 1rem;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.ImageModal>label {
+    display: flex;
+    gap: 1rem;
+}
+
+.Address-MobileModal {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.Address-MobileModal>label {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.Address-MobileModal>label>input {
+    margin-left: 20px;
+}
