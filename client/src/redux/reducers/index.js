@@ -13,6 +13,7 @@ import notify from './notifyReducer'
 import online from './onlineReducer'
 import call from './callReducer'
 import detailPost from './detailPostReducer'
+import message from './messageReducer'
 
 
 
@@ -30,4 +31,5 @@ export default combineReducers({
     online,
     call,
     detailPost,
+    message,
 })

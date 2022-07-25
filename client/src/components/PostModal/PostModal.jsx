@@ -10,7 +10,7 @@ import { GLOBAL_TYPES } from "../../redux/actions/globalTypes";
 import { Link } from "react-router-dom";
 import { createPost, updatePost } from "../../redux/actions/postAction";
 import { imageShow, videoShow } from "../../utils/mediaShow";
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
 import Smile from '../../images/smiling.png'
 
 const PostModal = () => {
@@ -138,7 +138,9 @@ const PostModal = () => {
         />
         <div className="Emoji">
           <img src={Smile} style={{width:"25px", height:"25px"}} alt="" onClick={e => setEmojiOpened((prev) => !prev)}/>
-          {emojiOpened ? <Picker  onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_DARK}/> : ""}
+          <div className="Picker_Post">
+            {emojiOpened ? <Picker  onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_LIGHT}/> : ""}
+          </div>
         </div>
         <div className="postOptions">
           <div className="option" style={{ color: "var(--photo)" }}

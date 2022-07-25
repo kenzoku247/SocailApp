@@ -29,12 +29,13 @@ dotenv.config()
 const HTTP = createServer(app)
 const io =  new Server(HTTP,    {
     cors: {
-      origin: '*',
+      origin: 'http://localhost:3000',
     }
 })
 
-io.on('connection', socket => {
-    SocketServer(socket)
+io.on('connection', (socket) => {
+    SocketServer(socket);
+    // console.log("a user connected with Id: " + socket.id);
 })
 
 // Create peer server

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createComment } from '../../../../../../../../../redux/actions/commentAction'
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
 import Smile from '../../../../../../../../../images/smiling.png'
 import './InputComment.css'
 
@@ -55,9 +55,11 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
                 background: theme ? 'rgba(0,0,0,.03)' : '',
             }} />
 
-            <div className="Emoji">
+            <div className="Emoji_Comment">
                 <img src={Smile} style={{width:"25px", height:"25px"}} alt="" onClick={e => setEmojiOpened((prev) => !prev)}/>
-                {emojiOpened ? <Picker  onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_DARK}/> : ""}
+                <div className="Picker_Comment">
+                    {emojiOpened ? <Picker  onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_LIGHT}/> : ""}
+                </div>
             </div>
 
             <button type="submit" className="button">

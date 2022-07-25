@@ -23,6 +23,7 @@ const spawnNotification = (body, icon, url, title) => {
 const SocketClient = () => {
     const { socket, notify, online, call } = useSelector(state => state)
     const { authData } = useSelector(state => state.auth)
+    // console.log(authData);
     const dispatch = useDispatch()
 
     const audioRef = useRef()
@@ -147,7 +148,7 @@ const SocketClient = () => {
         return () => socket.off('addMessageToClient')
     },[socket, dispatch])
 
-    // Check User Online / Offline
+    // Check User Online 
     useEffect(() => {
         socket.emit('checkUserOnline', authData.user)
     },[socket, authData.user])

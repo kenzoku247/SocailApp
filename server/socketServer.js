@@ -1,5 +1,6 @@
 let users = []
 
+
 const EditData = (data, id, call) => {
     const newData = data.map(item => 
         item.id === id ? {...item, call} : item
@@ -10,14 +11,18 @@ const EditData = (data, id, call) => {
 const SocketServer = (socket) => {
     // Connect - Disconnect
     socket.on('joinUser', user => {
-        users.push({id: user._id, socketId: socket.id, followers: user.followers})
+        !users.some((user) => user.socketId === socket.id) &&
+        users.push({id: user._id, socketId: socket.id, followers: user.followers, friends: user.friends})
+        // console.log(user);
+        console.log(users.length);
     })
 
     socket.on('disconnect', () => {
+        // console.log(`User w1ith id ${socket.id} disconnected`);
         const data = users.find(user => user.socketId === socket.id)
         if(data){
             const clients = users.filter(user => 
-                data.followers.find(item => item._id === user.id)
+                data.friends.find(item => item._id === user.id)
             )
 
             if(clients.length > 0){
@@ -35,7 +40,8 @@ const SocketServer = (socket) => {
             }
         }
 
-        users = users.filter(user => user.socketId !== socket.id)
+        users = users.filter((user) => user.socketId !== socket.id)
+        console.log(users.length);
     })
 
 
@@ -132,13 +138,13 @@ const SocketServer = (socket) => {
 
     // Check User Online / Offline
     socket.on('checkUserOnline', data => {
-        const followings = users.filter(user => 
-            data.followings.find(item => item._id === user.id)
+        const friends = users.filter(user => 
+            data.friends.find(item => item._id === user.id)
         )
-        socket.emit('checkUserOnlineToMe', followings)
+        socket.emit('checkUserOnlineToMe', friends)
 
         const clients = users.filter(user => 
-            data.followers.find(item => item._id === user.id)
+            data.friends.find(item => item._id === user.id)
         )
 
         if(clients.length > 0){

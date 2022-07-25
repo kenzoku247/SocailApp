@@ -11,13 +11,14 @@ const Users = ({user}) => {
             <img src={
                 user.avatar
             } alt="" className='UserFriend_Image'/>
-            <div className=''></div>
-            <span>
-                {user.fullName}
-            </span>
-            <span>
-                Last Message...
-            </span>
+            <div className='UserFriend_Center'>
+                <h6 style={{marginBottom:'0px'}}>
+                    {user.fullName}
+                </h6>
+                <span>
+                    Last Message...
+                </span>
+            </div>
         </Link>
 
 

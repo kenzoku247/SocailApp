@@ -95,13 +95,13 @@ const messageCtrl = {
     },
     deleteConversation: async (req, res) => {
         try {
-            const newConver = await Conversation.findOneAndDelete({
+            const newConversation = await Conversation.findOneAndDelete({
                 $or: [
                     {recipients: [req.user._id, req.params.id]},
                     {recipients: [req.params.id, req.user._id]}
                 ]
             })
-            await Message.deleteMany({conversation: newConver._id})
+            await Message.deleteMany({conversation: newConversation._id})
             
             res.json({msg: 'Delete Success!'})
         } catch (err) {

@@ -18,6 +18,7 @@ import PostModal from './components/PostModal/PostModal';
 import { GLOBAL_TYPES } from './redux/actions/globalTypes';
 import socketClient from 'socket.io-client';
 import ActivationEmail from './pages/auth/ActivationEmail';
+import SocketClient from './SocketClient';
 
 function App() {
   const {authData} = useSelector((state)=>state.auth)
@@ -31,9 +32,11 @@ function App() {
     dispatch(refreshToken())
 
     // const socket = io()
-    const socket = socketClient("http://localhost:5000");
+    const socket = socketClient("http://localhost:5000",{
+      transports: ["websocket"]
+    });
     dispatch({type: GLOBAL_TYPES.SOCKET, payload: socket})
-    return () => socket.close()
+    // return () => socket.close()
   },[dispatch])
 
   useEffect(() => {
@@ -63,6 +66,7 @@ function App() {
       <div className="blur" style={{top: '36%',left: '-8rem'}}></div>
       <Alert />
       {status && <PostModal />}
+      {authData.token && <SocketClient />}
       <Routes>
         <Route path="/" exact element={authData.token ? <Home/> : <Auth/>} />
         <Route path="/forgot" element={authData.token  ? <NotFound/> : <ForgotPassword/>} />

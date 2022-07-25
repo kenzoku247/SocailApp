@@ -8,7 +8,7 @@ import NotLike from '../../../../../../../../images/notlike.png'
 import './CommentCard.css'
 import InputComment from './InputComment/InputComment'
 import CommentMenu from './CommentMenu/CommentMenu'
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
 import Smile from '../../../../../../../../images/smiling.png'
 
 
@@ -154,7 +154,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
                             </small>
                             <div className="Emoji_Edit">
                                 <img src={Smile} style={{width:"25px", height:"25px"}} alt="" onClick={e => setEmojiOpened((prev) => !prev)}/>
-                                {emojiOpened ? <Picker onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_DARK}/> : ""}
+                                {emojiOpened ? <Picker onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_LIGHT}/> : ""}
                             </div>
                         </>
 

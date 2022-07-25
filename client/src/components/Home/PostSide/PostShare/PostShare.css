@@ -31,7 +31,10 @@
 }
 
 
-
+.Picker_Post {
+    position: absolute;
+    top:70%;
+}
 
 
 .postOptions{
