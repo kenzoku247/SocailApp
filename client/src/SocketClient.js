@@ -148,6 +148,14 @@ const SocketClient = () => {
         return () => socket.off('addMessageToClient')
     },[socket, dispatch])
 
+    useEffect(() => {
+        socket.on('deleteMessageToClient', ({newData, msg}) =>{
+            dispatch({type: MESS_TYPES.DELETE_MESSAGES, payload: {newData, _id: msg.sender}})
+        })
+
+        return () => socket.off('deleteMessageToClient')
+    },[socket, dispatch])
+
     // Check User Online 
     useEffect(() => {
         socket.emit('checkUserOnline', authData.user)

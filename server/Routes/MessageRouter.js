@@ -7,11 +7,12 @@ router.post('/message', Auth, MessageCtrl.createMessage)
 
 router.get('/conversations', Auth, MessageCtrl.getConversations)
 
-router.get('/message/:id', Auth, MessageCtrl.getMessages)
+router.delete('/conversation/:idFriend', Auth, MessageCtrl.deleteConversation)
 
-router.delete('/message/:id', Auth, MessageCtrl.deleteMessages)
+router.get('/message/:idFriend', Auth, MessageCtrl.getMessages)
 
-router.delete('/conversation/:id', Auth, MessageCtrl.deleteConversation)
+router.delete('/message/:idMessage', Auth, MessageCtrl.deleteMessages)
+
 
 
 export default router

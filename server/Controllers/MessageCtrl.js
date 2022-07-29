@@ -1,5 +1,6 @@
 import Conversation from '../Models/ConversationModel.js'
 import Message from '../Models/MessageModel.js'
+import User from '../Models/UserModel.js'
 
 class APIfeatures {
     constructor(query, queryString){
@@ -19,29 +20,43 @@ class APIfeatures {
 const messageCtrl = {
     createMessage: async (req, res) => {
         try {
-            const { sender, recipient, text, media, call } = req.body
+            const { sender, text, media, call, recipient } = req.body;
+            const recipientUser = await User.findById(recipient);
+            if (!recipientUser) {
+                return res.status(404).json({msg: "Recipient not found"});
+            }
 
-            if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
-
-            const newConversation = await Conversation.findOneAndUpdate({
-                $or: [
-                    {recipients: [sender, recipient]},
-                    {recipients: [recipient, sender]}
-                ]
-            }, {
-                recipients: [sender, recipient],
-                text, media, call
-            }, { new: true, upsert: true })
+            const conversation = await Conversation.findOneAndUpdate(
+                {$and:[
+                    {recipient: {$in: [sender, recipient]}},
+                    {sender: {$in: [sender, recipient]}}
+                ]}
+                ,{recipients: [sender, recipient],
+                    text,
+                    media,
+                    call,
+                    recipient: recipient,
+                    sender: sender
+                }
+            , { new: true, upsert: true });
 
             const newMessage = new Message({
-                conversation: newConversation._id,
-                sender, call,
-                recipient, text, media
-            })
+                conversation: conversation._id,
+                sender,
+                recipient,
+                text, media, call
+            });
 
             await newMessage.save()
 
-            res.json({msg: 'Create Success!'})
+            conversation.lastMsgAt = Date.now();
+
+            await conversation.save();
+
+            res.json({
+                newMessage,
+                msg: 'Create Success!'
+            })
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -49,12 +64,16 @@ const messageCtrl = {
     },
     getConversations: async (req, res) => {
         try {
-            const features = new APIfeatures(Conversation.find({
-                recipients: req.user._id
-            }), req.query).paginating()
+            const { _id } = req.user;
 
-            const conversations = await features.query.sort('-updatedAt')
-            .populate('recipients', 'avatar username fullName')
+            const conversations = await new APIfeatures(Conversation.find({
+            recipients: {
+                $in: [_id],
+            },
+            }), req.query).paginating().query
+            .populate("recipients", "avatar username fullName")
+            .sort("-updatedAt")
+            .lean();
 
             res.json({
                 conversations,
@@ -67,19 +86,39 @@ const messageCtrl = {
     },
     getMessages: async (req, res) => {
         try {
-            const features = new APIfeatures(Message.find({
-                $or: [
-                    {sender: req.user._id, recipient: req.params.id},
-                    {sender: req.params.id, recipient: req.user._id}
-                ]
-            }), req.query).paginating()
-
-            const messages = await features.query.sort('-createdAt')
-
-            res.json({
-                messages,
-                result: messages.length
+            const conversation = await Conversation.find({
+                $and:[{recipients: { $in: [req.user._id]}},
+                      {sender: {$in :[req.user._id,req.params.idFriend]}},
+                      {recipient: {$in :[req.user._id,req.params.idFriend]}},
+                    ]
             })
+            // console.log("Do dai conver:", conversation.length);
+            if (conversation.length > 0) {
+                const messages = await new APIfeatures(Message.find({
+        
+                    $or: [
+                        {sender: req.user._id, recipient: req.params.idFriend},
+                        {sender: req.params.idFriend, recipient: req.user._id}
+                    ]
+                
+                }), req.query).paginating().query
+                .sort("-createdAt")
+    
+                res.json({
+                    messages,
+                    result: messages.length
+                })
+                
+            } else {
+                res.json({
+                    messages: [],
+                    result: 0
+                }) 
+            }
+
+            // console.log(conversation);
+
+
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -87,7 +126,8 @@ const messageCtrl = {
     },
     deleteMessages: async (req, res) => {
         try {
-            await Message.findOneAndDelete({_id: req.params.id, sender: req.user._id})
+            await Message.findOneAndDelete({_id: req.params.idMessage, sender: req.user._id})
+ 
             res.json({msg: 'Delete Success!'})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -95,13 +135,20 @@ const messageCtrl = {
     },
     deleteConversation: async (req, res) => {
         try {
-            const newConversation = await Conversation.findOneAndDelete({
-                $or: [
-                    {recipients: [req.user._id, req.params.id]},
-                    {recipients: [req.params.id, req.user._id]}
-                ]
-            })
-            await Message.deleteMany({conversation: newConversation._id})
+            const newConversation = await Conversation.findOneAndUpdate(
+                {$and:[
+                    {recipient: {$in: [req.user._id, req.params.idFriend]}},
+                    {sender: {$in: [req.params.idFriend, req.user._id]}}
+                ]}
+                ,
+                { $pull : { recipients: req.user._id}},
+                {new: true}
+            )
+
+            if (newConversation.recipients.length === 0) {
+
+                await Message.deleteMany({conversation: newConversation._id})
+            }
             
             res.json({msg: 'Delete Success!'})
         } catch (err) {

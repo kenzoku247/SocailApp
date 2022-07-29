@@ -22,7 +22,7 @@ const messageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 data: state.data.map(item => 
-                    item._id === action.payload.recipient || item._id === action.payload.sender 
+                    item._id === action.payload.recipient || item._id === action.payload.sender
                     ? {
                         ...item,
                         messages: [...item.messages, action.payload],
@@ -71,7 +71,8 @@ const messageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: DeleteData(state.users, action.payload),
-                data: DeleteData(state.data, action.payload)
+                data: DeleteData(state.data, action.payload),
+                
             };
         case MESS_TYPES.CHECK_ONLINE_OFFLINE:
             return {

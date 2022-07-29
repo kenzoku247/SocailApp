@@ -14,6 +14,7 @@ import online from './onlineReducer'
 import call from './callReducer'
 import detailPost from './detailPostReducer'
 import message from './messageReducer'
+import peer from './peerReducer'
 
 
 
@@ -32,4 +33,5 @@ export default combineReducers({
     call,
     detailPost,
     message,
+    peer
 })

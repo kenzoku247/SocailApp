@@ -4,7 +4,10 @@ const MessageSchema = new mongoose.Schema({
     conversation: { type: mongoose.Types.ObjectId, ref: 'Conversation' },
     sender: { type: mongoose.Types.ObjectId, ref: 'User' },
     recipient: { type: mongoose.Types.ObjectId, ref: 'User' },
-    text: String,
+    text: { 
+        type: String, 
+        required: true,
+    },
     media: Array,
     call: Object
 }, {

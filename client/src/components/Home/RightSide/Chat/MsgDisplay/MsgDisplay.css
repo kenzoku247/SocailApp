@@ -1,0 +1,54 @@
+.Message_Form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 1rem ;
+}
+
+.MsgDisplay {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+     
+}
+
+.Msg_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.Msg_content>img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.Reverse {
+    flex-direction: row-reverse;
+    
+}
+
+.Form_Reverse {
+    align-items:flex-end
+}
+
+.Chat_Text {
+    background-color: bisque;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.Chat_Text_Reverse {
+    background-color:aqua;
+}
+
+.Chat_Avatar {
+
+}
+
+.Time_Chat {
+    font-size: 8px;
+}

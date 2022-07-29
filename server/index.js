@@ -29,7 +29,8 @@ dotenv.config()
 const HTTP = createServer(app)
 const io =  new Server(HTTP,    {
     cors: {
-      origin: 'http://localhost:3000',
+    //   origin: 'http://localhost:3000',
+      origin: 'http://192.168.0.116:3000',
     }
 })
 

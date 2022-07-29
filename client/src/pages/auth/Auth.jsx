@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 const Auth = () => {
     const dispatch = useDispatch()
     const {authData} = useSelector(state=>state.auth)
-    const { alert } = useSelector(state => state)
+    const { alert, online } = useSelector(state => state)
     
     const navigate = useNavigate();
     const [isSignUp, setIsSignUp] = useState(false)
@@ -25,17 +25,6 @@ const Auth = () => {
         confirmPassword: "", 
         gender: "male"
     }
-
-    // const googleInit = {
-    //     username: '',
-    //     email: '', 
-    //     email_verified: false,
-    //     firstName: '', 
-    //     lastName: '', 
-    //     avatar: ''
-    // }
-
-    // const [googleData, setGoogleData] = useState(googleInit)
 
     const [data, setData] = useState(initialState)
     const { firstName, lastName, username, email, password, confirmPassword } = data
@@ -61,6 +50,7 @@ const Auth = () => {
             dispatch(register(data))
         } else {
             dispatch(login(data))
+            console.log(online);
         }
     }
 

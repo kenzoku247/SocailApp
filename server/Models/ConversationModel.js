@@ -5,6 +5,11 @@ const ConversationSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId, 
         ref: 'User' 
     }],
+    recipient: { type: mongoose.Types.ObjectId, ref: 'User' },
+    sender: { type: mongoose.Types.ObjectId, ref: 'User' },
+    lastMsgAt: {
+        type: Date,
+    },
     text: String,
     media: Array,
     call: Object

@@ -18,7 +18,7 @@ const SocketServer = (socket) => {
     })
 
     socket.on('disconnect', () => {
-        // console.log(`User w1ith id ${socket.id} disconnected`);
+        // console.log(`User with id ${socket.id} disconnected`);
         const data = users.find(user => user.socketId === socket.id)
         if(data){
             const clients = users.filter(user => 
@@ -132,7 +132,13 @@ const SocketServer = (socket) => {
     // Message
     socket.on('addMessage', msg => {
         const user = users.find(user => user.id === msg.recipient)
+        // console.log(users);
         user && socket.to(`${user.socketId}`).emit('addMessageToClient', msg)
+    })
+
+    socket.on('deleteMessage', ({newData, msg}) => {
+        const user = users.find(user => user.id === msg.recipient)
+        user && socket.to(`${user.socketId}`).emit('deleteMessageToClient', ({newData, msg}))
     })
 
 
