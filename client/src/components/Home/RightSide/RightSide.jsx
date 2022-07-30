@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./RightSide.css";
 import Home from "../../../images/home.png";
+import DiscoverIcon from '../../../images/discover.png'
 import noNotify from "../../../images/bell.png"
 import ChatIcon from "../../../images/chat.png"
 import Setting from "../../../images/settings.png"
@@ -12,10 +13,12 @@ import SettingModal from "../../SettingModal/SetttingModal";
 import { logout } from "../../../redux/actions/authAction";
 import Friends from "./Friends/Friends";
 import Chat from './Chat/Chat'
+import Discover from "./Discover/Discover";
 
 const RightSide = () => {
   const dispatch = useDispatch()
   const { notify } = useSelector(state => state)
+  const [openDiscover, setOpenDiscover] = useState(true)
   const [openFriends, setOpenFriends] = useState(false)
   const [openChat, setOpenChat] = useState(false)
 
@@ -31,7 +34,8 @@ const RightSide = () => {
     <div className="RightSide">
       <div className="navIcons">
         {/* <img src={Home} alt="" /> */}
-        <img src={Friend} alt="" style={{cursor:'pointer'}} onClick={() => setOpenFriends(prev => !prev)}/>
+        <img src={DiscoverIcon} alt="" style={{cursor:'pointer'}} onClick={() => {setOpenFriends(false);setOpenDiscover(true)}}/>
+        <img src={Friend} alt="" style={{cursor:'pointer'}} onClick={() => {setOpenDiscover(false);setOpenFriends(true)}}/>
         <img src={ChatIcon} alt="" style={{cursor:'pointer'}} onClick={() => setOpenChat(prev => !prev)}/>
         <div className="dropdown">
           <button  type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,18 +51,15 @@ const RightSide = () => {
             <img src={Setting} alt="Setting" style={{cursor:'pointer'}}/>
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu3">
-            <h3 style={{padding:'0 8px'}}>Setting</h3>
+            <h3 style={{padding:'0 8px',fontWeight:'bold'}}>Setting</h3>
             <hr className="mt-0" />
             <li><button className="dropdown-item" type="button" onClick={handleLogout}>Log Out</button></li>
-            {/* <SettingModal/> */}
+
           </ul>
         </div>
       </div>
 
-
-      {/* <button className="button r-button" onClick={() => setModalOpened(true)}>
-        Share
-      </button> */}
+      { openDiscover && <Discover/>}
       { openFriends && <Friends /> }
       { openChat && <Chat openChat={openChat} setOpenChat={setOpenChat}/>}
     </div>

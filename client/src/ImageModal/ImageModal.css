@@ -1,0 +1,9 @@
+.ImageModal {
+    display: flex;
+    justify-content: center;
+}
+
+.ImageOnModal {
+    max-height: 80vh;
+
+}

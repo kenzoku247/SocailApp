@@ -86,8 +86,8 @@
 
 .Chat_Area {
     background-color: rgba(255, 255, 255, 0.6);
-    height: 300px;
-    overflow-y: auto;
+    height: 330px;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
 }
@@ -119,6 +119,50 @@
     justify-items: end;
 }
 
+.Show_Media {
+    position: absolute;
+    bottom: 58px;
+    width: 100%;
+    height: 70px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    place-items: center;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+.Show_Media #File_Media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.Show_Media #File_Media img,
+.Show_Media #File_Media video{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.Show_Media #File_Media span{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    background: white;
+    border: 1px solid crimson;
+    padding: 2px 6px;
+    color: crimson;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .Chat_Content {
     display: flex;
     gap: 1rem;
@@ -137,6 +181,7 @@
     width: 15rem;
     border-radius: 8px;
     padding: 0.5rem;
+    margin-bottom: 10px;
 }
 
 
@@ -153,3 +198,5 @@
 .Content_Media>input {
     display: none;
 }
+
+

@@ -30,12 +30,15 @@ const ShareModal = ({onShare, setOnShare, url}) => {
         <div className="Share_Social">
             <FacebookShareButton url={url} >
                 <FacebookIcon round={true} size={40} />
+                Facebook
             </FacebookShareButton>
             <EmailShareButton url={url} >
                 <EmailIcon round={true} size={40} />
+                Email
             </EmailShareButton>
             <TwitterShareButton url={url} >
                 <TwitterIcon round={true} size={40} />
+                Twitter
             </TwitterShareButton>
         </div>
     </Modal>

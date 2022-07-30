@@ -74,8 +74,8 @@ function App() {
         <Route path="/api/reset/:token" exact element={<ResetPassword/>} />
         <Route path="/api/activate/:activation_token" exact element={<ActivationEmail/>}/>
 
-        <Route exact path="/:page" element={firstLogin ? <PageRender/> : <Home/>}/>
-        <Route exact path="/:page/:id" element={firstLogin ? <PageRender/> : <Home/>}/>
+        <Route exact path="/:page" element={firstLogin ? <PageRender/> : <Auth/>}/>
+        <Route exact path="/:page/:id" element={firstLogin ? <PageRender/> : <Auth/>}/>
       </Routes>
     </div>
   );

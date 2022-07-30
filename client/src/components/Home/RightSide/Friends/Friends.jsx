@@ -69,7 +69,7 @@ const Friends = () => {
   return (
     <div className='Friends'>
         <div className="Friends_Header">
-            <h5>Friends</h5>
+            <h3 style={{fontWeight:'bold'}}>Friends</h3>
             <img src={Search} alt="" onClick={() => setOnSearch(prev => !prev)}/>
         </div>
         <div className="Friends_List">

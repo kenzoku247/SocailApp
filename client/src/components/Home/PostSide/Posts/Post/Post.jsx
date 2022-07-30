@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Post.css'
+import NoComment from '../../../../../images/nocomment.png'
 import Comment from '../../../../../images/comment.png'
 import Share from '../../../../../images/share.png'
 import Heart from '../../../../../images/like.png'
@@ -126,12 +127,15 @@ const Post = ({post, theme, user, location}) => {
           }
         </div>
         {
-          post.images.length > 0 && <Link to={`/post/${post._id}`}><Carousel images={post.images} id={post._id} /></Link>
+          post.images.length > 0 && 
+          // <div style={{alignItems:'center',justifyContent:'center',display:'flex',backgroundColor:'rgba(0,0,0,0.5)'}}>
+            <Carousel post={post} />
+          // </div>
+          
         }
 
         <div className="PostReact">
           <div className='Like'>
-            {/* <Link to={`/post/${post._id}`}> */}
               <img 
                 src={isLike ? Heart : NotLike}
                 alt=""
@@ -139,22 +143,24 @@ const Post = ({post, theme, user, location}) => {
                 onClick={location === 'home' ? (isLike ? handleUnLike : handleLike) : undefined}
                 
               />
-            {/* </Link> */}
             <span style={ {color: "var(--gray)", fontSize: '12px'} }>
             {post.likes.length} {post.likes.length > 1 ? "likes" : "like"}
             </span>
           </div>
           <div className='Comment'>
             <img 
-              src={Comment} alt="" 
+              src={post.comments.length > 0 ? Comment : NoComment} alt="" 
               style={{ cursor: "pointer" }}
             />
             <span style={ {color: "var(--gray)", fontSize: '12px'} }>
-              {post.comments.length} comments
+              {post.comments.length} {post.comments.length > 1 ? "comments" : "comment"}
             </span>
           </div>
           <div className='Share'>
             <img src={Share} alt="" onClick={location === 'home' ? (() => setOnShare(true)) : undefined}/>
+            <span style={ {color: "var(--gray)", fontSize: '12px'} }>
+              Share
+            </span>
           </div>
           <ShareModal url={`${BASE_URL}/post/${post._id}`} theme={theme} onShare={onShare} setOnShare={setOnShare}/>
         </div>

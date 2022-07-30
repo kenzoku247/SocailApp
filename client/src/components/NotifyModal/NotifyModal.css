@@ -16,7 +16,7 @@
 }
 
 .Notify_Header {
-
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -41,7 +41,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    max-width: 270px;
+    max-width: 260px;
     padding-left: 0.5rem;
 }
 
@@ -50,11 +50,11 @@
 } */
 
 .NotRead {
-    position: fixed;
+    position: absolute;
     width: 8px;
     height: 8px;
-    right: 0.7rem;
-    margin-top: 2rem;
+    right: 0.2rem;
+    top: 1.8rem;
 }
 
 .Minimize {
@@ -64,9 +64,9 @@
     opacity: 0;
     border-radius: 50%;
     padding: 5px;
-    position: fixed;
-    right: 0.3rem;
-    margin-top: 1.7rem;
+    position: absolute;
+    right: -0.2rem;
+    top: 1.5rem;
     cursor: pointer;
 }
 
@@ -76,7 +76,7 @@
 
 .Notify_Time {
     display: flex;
-    align-items: center;
+    align-items: center;    
     margin-left: 3rem;
     font-size: 10px;
     justify-content: space-between;
@@ -84,7 +84,17 @@
 }
 
 .Notify_Footer {
-    font-size: 12px;
-    margin-left: 0.5rem;
-    justify-content: right;
+    display: flex;
+    padding: 0 0.5rem;
+    justify-content: space-between;
 }
+
+.Notify_Footer>div>h6 {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.Notify_Footer>div>h6:hover {
+    color: red;
+}
+

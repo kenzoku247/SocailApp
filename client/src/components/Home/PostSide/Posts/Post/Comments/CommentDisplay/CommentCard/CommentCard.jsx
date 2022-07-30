@@ -174,7 +174,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
                 <img 
                 src={isLike ? Heart : NotLike}
                 alt=""
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", width:'30px'}}
                 onClick={isLike ? handleUnLike : handleLike} />
             </div>
         </div> 

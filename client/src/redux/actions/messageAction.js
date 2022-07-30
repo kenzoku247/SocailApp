@@ -67,9 +67,10 @@ export const getMessages = ({authData, idFriend, page = 1}) => async (dispatch) 
 export const loadMoreMessages = ({authData, idFriend, page = 1}) => async (dispatch) => {
     try {
         const res = await getDataAPI(`message/${idFriend}?limit=${page * 9}`, authData.token)
-        const newData = {...res.data, messages: res.data.messages.reverse()}
-
-        dispatch({type: MESS_TYPES.UPDATE_MESSAGES, payload: {...newData, _id: idFriend, page}})
+        if (res) {
+            const newData = {...res.data, messages: res.data.messages.reverse()}
+            dispatch({type: MESS_TYPES.UPDATE_MESSAGES, payload: {...newData, _id: idFriend, page}})
+        }
     } catch (err) {
         dispatch({type: GLOBAL_TYPES.ALERT, payload: {error: err.response.data.msg}})
     }
@@ -90,7 +91,7 @@ export const deleteMessages = ({msg, data, authData, socket}) => async (dispatch
 }
 
 export const deleteConversation = ({authData, idFriend}) => async (dispatch) => {
-    console.log(idFriend);
+    // console.log(idFriend);
     dispatch({type: MESS_TYPES.DELETE_CONVERSATION, payload: idFriend})
     try {
         await deleteDataAPI(`conversation/${idFriend}`, authData.token)

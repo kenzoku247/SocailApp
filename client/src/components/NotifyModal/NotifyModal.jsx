@@ -18,6 +18,12 @@ const NotifyModal = () => {
         dispatch(isReadNotify({msg, authData}))
     }
 
+    const handleMarkAllRead = () => {
+        notify.data.map(msg => (
+            dispatch(isReadNotify({msg, authData}))
+        ))
+    }
+
     const handleSound = () => {
         dispatch({type: NOTIFY_TYPES.UPDATE_SOUND, payload: !notify.sound})
     }
@@ -34,7 +40,7 @@ const NotifyModal = () => {
   return (
     <div style={{minWidth: '400px'}}>
         <div className="Notification">
-            <h3>Notification</h3>
+            <h3 style={{fontWeight:'bold'}}>Notification</h3>
             {
                 notify.sound 
                 ? <i className="fas fa-bell text-danger" 
@@ -83,9 +89,12 @@ const NotifyModal = () => {
                             </Link>
                             <div className='Notify_Icon'>
                                 {
-                                    !msg.isRead && <img src={Circle} className='NotRead' alt=""/>
+                                    !msg.isRead && 
+                                    <>
+                                        <img src={Circle} className='NotRead' alt=""/>
+                                        <img src={Minimize} alt="" className='Minimize' onClick={() => handleIsRead(msg)}/>
+                                    </>
                                 }
-                                <img src={Minimize} alt="" className='Minimize'/>
                             </div>
                         </div>
                         {/* <div className='Notify_Footer'> */}
@@ -99,9 +108,13 @@ const NotifyModal = () => {
 
         </div>
         <hr className="my-1" />
-        <div className="Notify_Footer" style={{cursor: 'pointer'}}
-            onClick={handleDeleteAll}>
-            Delete All
+        <div className="Notify_Footer">
+                <div className="Delete_Notify" onClick={handleDeleteAll}>
+                    <h6 style={{cursor: 'pointer'}} >Delete All</h6>
+                </div>
+                <div className="Mark_All_Read" onClick={handleMarkAllRead}>
+                    <h6 style={{cursor: 'pointer'}} >Mark All Read</h6>
+                </div>
         </div>
     </div>
   )

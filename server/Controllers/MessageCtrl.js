@@ -92,7 +92,6 @@ const messageCtrl = {
                       {recipient: {$in :[req.user._id,req.params.idFriend]}},
                     ]
             })
-            // console.log("Do dai conver:", conversation.length);
             if (conversation.length > 0) {
                 const messages = await new APIfeatures(Message.find({
         

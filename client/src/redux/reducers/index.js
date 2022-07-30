@@ -13,6 +13,7 @@ import notify from './notifyReducer'
 import online from './onlineReducer'
 import call from './callReducer'
 import detailPost from './detailPostReducer'
+import discover from './discoverReducer'
 import message from './messageReducer'
 import peer from './peerReducer'
 
@@ -20,6 +21,7 @@ import peer from './peerReducer'
 
 export default combineReducers({
     auth, 
+    discover,
     alert,
     suggest,
     socket,

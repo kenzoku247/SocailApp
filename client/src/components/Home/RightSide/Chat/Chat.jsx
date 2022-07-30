@@ -18,10 +18,12 @@ import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react'
 import { getDataAPI } from '../../../../utils/fetchData'
 import { GLOBAL_TYPES } from '../../../../redux/actions/globalTypes'
 import SearchGif from '../../../../images/search.gif';
-import { addMessage, deleteConversation, getConversations, getMessages, MESS_TYPES } from '../../../../redux/actions/messageAction'
+import { addMessage, deleteConversation, getConversations, getMessages, loadMoreMessages, MESS_TYPES } from '../../../../redux/actions/messageAction'
 import { useEffect } from 'react'
 import MsgDisplay from './MsgDisplay/MsgDisplay'
 import { imageUpload } from '../../../../utils/imageUpload'
+import LoadIcon from '../../../../images/loading.gif'
+import { imageShow, videoShow } from '../../../../utils/mediaShow'
 
 const Chat = ({openChat,setOpenChat}) => {
     const { online, message, theme, socket } = useSelector(state => state)
@@ -43,6 +45,7 @@ const Chat = ({openChat,setOpenChat}) => {
     const [result, setResult] = useState(9)
     const pageEnd = useRef()
     const [page, setPage] = useState(0)
+    const [isLoadMore, setIsLoadMore] = useState(0)
 
     const [emojiOpened, setEmojiOpened] = useState(false)
     const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -84,25 +87,36 @@ const Chat = ({openChat,setOpenChat}) => {
         if(message.firstLoad) return;
         dispatch(getConversations({authData}))
     },[dispatch, authData, message.firstLoad])
-
+    console.log(message);
     // Load More
-    useEffect(() => {
-        const observer = new IntersectionObserver(entries => {
-            if(entries[0].isIntersecting){
-                setPage(p => p + 1)
-            }
-        },{
-            threshold: 0.1
-        })
-
-        observer.observe(pageEnd.current)
-    },[setPage])
 
     useEffect(() => {
-        if(message.resultUsers >= (page - 1) * 9 && page > 1){
-            dispatch(getConversations({authData, page}))
+        if (idFriend) {
+            const observer = new IntersectionObserver(entries => {
+                if(entries[0].isIntersecting){
+                    setIsLoadMore(p => p + 1)
+                }
+            },{
+                threshold: 0.1
+            })
+    
+            observer.observe(pageEnd.current)
         }
-    },[message.resultUsers, page, authData, dispatch])
+    }
+    ,[idFriend, setIsLoadMore]
+    )
+
+    useEffect(() => {
+        if (idFriend) {
+            if(isLoadMore > 1){
+                if(result >= page * 9){
+                    dispatch(loadMoreMessages({authData, idFriend, page: page + 1}))
+                    setIsLoadMore(1)
+                }
+            }
+        }
+        // eslint-disable-next-line
+    },[isLoadMore, idFriend])
 
     // Check User Online - Offline
     useEffect(() => {
@@ -170,6 +184,7 @@ const Chat = ({openChat,setOpenChat}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setEmojiOpened(false)
         if(!text.trim() && media.length === 0) return;
         setText('')
         setMedia([])
@@ -286,6 +301,7 @@ const Chat = ({openChat,setOpenChat}) => {
                 {   
                     authData.user.friends.map( friend => 
                         (
+                        
                         <div key={friend._id} className='Chat_Friend'>
                             <div className='Friend'>
                                 <UserFriend   user={friend}/>
@@ -306,7 +322,7 @@ const Chat = ({openChat,setOpenChat}) => {
                         </div>)
                     )
                 }
-                <button ref={pageEnd} style={{opacity: 1}} >Load More</button>
+                {/* <button ref={pageEnd} style={{opacity: 1}} >Load More</button> */}
             </div>
         }
         { showChat && message.users.find(user => user._id === idFriend) && 
@@ -320,9 +336,12 @@ const Chat = ({openChat,setOpenChat}) => {
                     </div>
                 </div>
                 <div className="Chat_Area" ref={refDisplay}>
-                    <div className='Blur' style={{right: '10%'}}></div>
+                    <button style={{opacity: 0}} ref={pageEnd}>
+                        Load more
+                    </button>
+                    {/* <div className='Blur' style={{right: '10%'}}></div>
                     <div className='Blur' style={{bottom: '40%'}}></div>
-                    <div className='Blur' style={{right: '30%',bottom: '15%'}}></div>
+                    <div className='Blur' style={{right: '30%',bottom: '15%'}}></div> */}
                     {
                         data.map((msg, index) => (
                             <div key={index}>
@@ -342,7 +361,27 @@ const Chat = ({openChat,setOpenChat}) => {
                             </div>
                         ))
                     }
+                    {
+                       loadMedia && 
+                       <div className="Chat_Row You_Msg">
+                           <img src={LoadIcon} alt="loading" style={{width:'70px'}}/>
+                       </div>
+                   }
                 </div>
+                <div className="Show_Media" style={{display: media.length > 0 ? 'grid' : 'none'}} >
+                {
+                    media.map((item, index) => (
+                        <div key={index} id="File_Media">
+                            {
+                                item.type.match(/video/i)
+                                ? videoShow(URL.createObjectURL(item), theme)
+                                : imageShow(URL.createObjectURL(item), theme)
+                            }
+                            <span onClick={() => handleDeleteMedia(index)} >&times;</span>
+                        </div>
+                    ))
+                }
+            </div>
                 <form className="Chat_Content" onSubmit={handleSubmit}>
                     <div className="Content_Text">
                         <input 
@@ -363,10 +402,10 @@ const Chat = ({openChat,setOpenChat}) => {
                         <label htmlFor="file-input">
                             <img src={Photo} alt="" style={{width:"25px", height:"25px"}}/>
                         </label>
-                        <input type="file" name="file" id="file-input" multiple accept="image/*,video/*"/>
+                        <input type="file" name="file" id="file-input" multiple accept="image/*,video/*" onClick={() => setEmojiOpened(false)} onChange={handleChangeMedia}/>
                     </div>
                     <div className="Send">
-                        <img src={Send} alt="" style={{width:"25px", height:"25px"}} onClick={handleSubmit}/>
+                        <img src={Send} alt="" style={{width:"25px", height:"25px"}} onClick={handleSubmit} />
 
                     </div>
                 </form>
