@@ -1,3 +1,15 @@
+.Discover {
+    position: relative;
+}
+
 .Discover>h6 {
     font-size: 12px;
+
 }
+
+.LoadDiscover {
+    position: absolute;
+    top: 4%;
+    right: 0%;
+}
+

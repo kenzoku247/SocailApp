@@ -7,8 +7,22 @@ export const getDataAPI = async (url, token) => {
     return res;
 }
 
+export const getAdminDataAPI = async (url, token) => {
+    const res = await axios.get(`/admin/${url}`, {
+        headers: { Authorization: token}
+    })
+    return res;
+}
+
 export const postDataAPI = async (url, post, token) => { 
     const res = await axios.post(`/api/${url}`, post, {
+        headers: { Authorization: token}
+    })
+    return res;
+}
+
+export const postAdminDataAPI = async (url, post, token) => { 
+    const res = await axios.post(`/admin/${url}`, post, {
         headers: { Authorization: token}
     })
     return res;
@@ -28,8 +42,22 @@ export const patchDataAPI = async (url, post, token) => {
     return res;
 }
 
+export const patchAdminDataAPI = async (url, post, token) => {
+    const res = await axios.patch(`/admin/${url}`, post, {
+        headers: { Authorization: token}
+    })
+    return res;
+}
+
 export const deleteDataAPI = async (url, token) => {
     const res = await axios.delete(`/api/${url}`, {
+        headers: { Authorization: token}
+    })
+    return res;
+}
+
+export const deleteAdminDataAPI = async (url, token) => {
+    const res = await axios.delete(`/admin/${url}`, {
         headers: { Authorization: token}
     })
     return res;

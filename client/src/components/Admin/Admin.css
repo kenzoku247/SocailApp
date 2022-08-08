@@ -1,0 +1,141 @@
+.LoginAdmin {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.Form_LoginAdmin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.Form_LoginAdmin>div{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.Form_LoginAdmin>div>label{
+    flex: 1;
+}
+
+.Button_LoginAdmin {
+    display: flex;
+    gap: 1rem;
+}
+
+.NavbarManager {
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid black;
+}
+
+.NavbarManager>h1 {
+    flex:1 ;
+    margin-left: 2rem;
+}
+
+.BodyManager {
+    display: grid;
+    grid-template-columns: 30vh auto;
+    gap: 1rem;
+    height: 88vh;
+    
+}
+
+.RightManager {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem 0;
+}
+
+.ButtonRight {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.LeftManager {
+    
+}
+
+.UserManager {
+    width: 100%;
+}
+
+.ManagerHeader {
+    height: 100%;
+    background-color: aliceblue;
+    padding: 1rem;
+    display: flex;
+    gap: 4rem;
+    
+}
+
+.UserList {
+    background-color: #fff;
+    padding: 1rem 2rem ;
+}
+
+.UserListHeader{ 
+    display: flex;
+    
+    justify-content: space-between;
+}
+
+
+
+.UserListHeader>h5{
+    flex: 1;
+}
+
+.UserListField {
+    background-color: rgba(255,255,255,0.7);
+
+}
+
+.FieldName {
+    display: grid;
+    grid-template-columns: 8% 29% 25% 28% 10%;
+    background-color: aliceblue;
+    
+}
+
+
+
+.FieldName>h6 {
+    margin-bottom: unset;
+    padding: 1rem 0.5rem;
+}
+
+
+.InfoUser>div{
+    display: grid;
+    grid-template-columns: 8% 29% 25% 28% 10%;
+    padding: 0.5rem 0;
+}
+
+.InfoUser>div>h6 {
+    font-weight: 400;
+    margin-bottom: unset;
+    padding: 0.5rem;
+}
+
+.RoleUser {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.RoleUser>h6 {
+    margin-bottom: unset;
+    flex: 1;
+    padding: 0.5rem;
+}

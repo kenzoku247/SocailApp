@@ -20,8 +20,8 @@ const LogoSearch = () => {
           <button onClick={() => setOnSearch(true)}>
             #Explore
           </button>
-            <div className="s-icon">
-                <UilSearch onClick={() => setOnSearch(true)}/>
+            <div className="s-icon"onClick={() => setOnSearch(true)}>
+                <UilSearch />
             </div>
         </div>
         <SearchModal onSearch={onSearch} setOnSearch={setOnSearch} authData={authData}/>

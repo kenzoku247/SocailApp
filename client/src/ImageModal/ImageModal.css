@@ -7,3 +7,9 @@
     max-height: 80vh;
 
 }
+
+@media only screen and (max-width: 1070px){
+    .ImageOnModal {
+        max-width: 100%;
+    }
+}

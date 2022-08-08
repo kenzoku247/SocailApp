@@ -36,10 +36,18 @@
 }
 
 
-.dropdown>button>img {
+.dropdown {
     /* width: 15px;
     height: 15px; */
-    gap: 1rem;
+    gap: 0.5rem;
+}
+
+.dropdown {
+    display: flex;
+}
+
+.SavePost>img {
+    width: 40px;
 }
 
 .material-icons {

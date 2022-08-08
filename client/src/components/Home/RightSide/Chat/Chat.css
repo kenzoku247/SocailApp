@@ -94,7 +94,7 @@
 
 .Blur {
     position: absolute;
-    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+    background: var(--chatBox);
     width: 5rem;
     height: 5rem;
     border-radius: 50%;

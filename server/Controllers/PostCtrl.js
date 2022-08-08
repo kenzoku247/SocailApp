@@ -10,7 +10,7 @@ class APIfeatures {
 
     paginating(){
         const page = this.queryString.page * 1 || 1
-        const limit = this.queryString.limit * 1 || 9
+        const limit = this.queryString.limit * 1 || 8
         const skip = (page - 1) * limit
         this.query = this.query.skip(skip).limit(limit)
         return this;
@@ -167,7 +167,7 @@ const PostCtrl = {
 
             const newArr = [...req.user.followings, req.user._id]
 
-            const num  = req.query.num || 9
+            const num  = req.query.num || 8
 
             const posts = await Post.aggregate([
                 { $match: { user : { $nin: newArr } } },
@@ -238,11 +238,11 @@ const PostCtrl = {
                 _id: {$in: req.user.saved}
             }), req.query).paginating()
 
-            const savePost = await features.query.sort("-createdAt")
+            const savePosts = await features.query.sort("-createdAt")
 
             res.json({
-                savePost,
-                result: savePost.length
+                savePosts,
+                result: savePosts.length
             })
 
         } catch (err) {

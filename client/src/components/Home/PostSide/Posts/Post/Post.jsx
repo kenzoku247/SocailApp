@@ -6,9 +6,11 @@ import Share from '../../../../../images/share.png'
 import Heart from '../../../../../images/like.png'
 import NotLike from '../../../../../images/notlike.png'
 import Menu from '../../../../../images/menu.png'
+import UnSave from '../../../../../images/unsaved.png'
+import Saved from '../../../../../images/saved.png'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { likePost, unLikePost } from '../../../../../redux/actions/postAction'
+import { likePost, savePost, unLikePost, unSavePost } from '../../../../../redux/actions/postAction'
 import { GLOBAL_TYPES } from '../../../../../redux/actions/globalTypes'
 import { deletePost } from '../../../../../redux/actions/postAction'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -17,6 +19,7 @@ import Carousel from '../../../../Carousel'
 import Comments from './Comments/Comments'
 import InputComment from './Comments/CommentDisplay/CommentCard/InputComment/InputComment'
 import ShareModal from '../../../../ShareModal/ShareModal'
+import LikesModal from '../../../../LikesModal'
 
 const Post = ({post, theme, user, location}) => {
   const {id} = useParams()
@@ -34,6 +37,11 @@ const Post = ({post, theme, user, location}) => {
   const [isLike, setIsLike] = useState(false)
   const [loadLike, setLoadLike] = useState(false)
   const [onShare, setOnShare] = useState(false)
+
+  const [onLikes, setOnLikes] = useState(false)
+
+  const [saved, setSaved] = useState(false)
+  const [saveLoad, setSaveLoad] = useState(false)
 
   const handleEditPost = () => {
     dispatch({ type: GLOBAL_TYPES.STATUS, payload: {...post, onEdit: true}})
@@ -71,7 +79,32 @@ const Post = ({post, theme, user, location}) => {
     await dispatch(unLikePost({post, authData, socket}))
     setLoadLike(false)
   }
-  // console.log(post.user);
+
+  // Saved
+  useEffect(() => {
+    if(authData.user.saved.find(id => id === post._id)){
+        setSaved(true)
+    }else{
+        setSaved(false)
+    }
+  },[authData.user.saved, post._id])
+
+  const handleSavePost = async () => {
+      if(saveLoad) return;
+      
+      setSaveLoad(true)
+      await dispatch(savePost({post, authData}))
+      setSaveLoad(false)
+  }
+
+  const handleUnSavePost = async () => {
+      if(saveLoad) return;
+
+      setSaveLoad(true)
+      await dispatch(unSavePost({post, authData}))
+      setSaveLoad(false)
+  }
+  // console.log(authData.user.saved);
   return (
     <div className='Post'>
         <div className="PostHeader">
@@ -96,6 +129,12 @@ const Post = ({post, theme, user, location}) => {
           </div>
 
           <div className="dropdown">
+            <div className="SavePost" style={{cursor:'pointer'}}>
+              { saved 
+                ? <img src={Saved} alt="" onClick={handleUnSavePost}/>
+                : <img src={UnSave} alt="" onClick={handleSavePost}/>
+              }
+            </div>
             <button className=" button p-button" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
               <img src={Menu} alt="" />
             </button>
@@ -108,6 +147,7 @@ const Post = ({post, theme, user, location}) => {
                 </>
               }
               <li><button className="dropdown-item" type="button" onClick={handleCopyLink}>Copy Link</button></li>
+              
             </ul>
           </div>
         </div>
@@ -143,9 +183,10 @@ const Post = ({post, theme, user, location}) => {
                 onClick={location === 'home' ? (isLike ? handleUnLike : handleLike) : undefined}
                 
               />
-            <span style={ {color: "var(--gray)", fontSize: '12px'} }>
+            <span style={ {color: "var(--gray)", fontSize: '12px', cursor:"pointer"} } onClick={() => setOnLikes(true)}>
             {post.likes.length} {post.likes.length > 1 ? "likes" : "like"}
             </span>
+            { onLikes && <LikesModal onLikes={onLikes} setOnLikes={setOnLikes} data={post.likes}/>}
           </div>
           <div className='Comment'>
             <img 

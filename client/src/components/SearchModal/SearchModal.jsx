@@ -14,9 +14,6 @@ const SearchModal = ({onSearch, setOnSearch, authData}) => {
     const dispatch = useDispatch()
     const [search, setSearch] = useState('')
     const [users, setUsers] = useState([])
-    const [label, setLabel] = useState('#Username: ')
-    const [placeholder, setPlaceholder] = useState('username')
-    const [type, setType] = useState('username')
     const [load, setLoad] = useState(false)
     const ref = useRef(null);
     const [showNotice, setShowNotice] = useState(false)
@@ -31,27 +28,13 @@ const SearchModal = ({onSearch, setOnSearch, authData}) => {
         }
     }, [search.length])
 
-    const handleChange = (e) => {
-        setType(e.target.value)
-        setSearch('');
-        setUsers([])
-    }
-
     const handleSearch = async (e) => {
         e.preventDefault()
         if(!search) return;
 
         try {
             setLoad(true)
-            let res
-            // console.log(type);
-            if (type === 'username') {
-                res = await getDataAPI(`searchU?${type}=${search}`, authData.token)
-            } else if (type === 'fullName') {
-                res = await getDataAPI(`searchF?${type}=${search}`, authData.token)
-            } else {
-                res = await getDataAPI(`searchE?${type}=${search}`, authData.token)
-            }
+            const res = await getDataAPI(`search?fullName=${search}`, authData.token)
             setUsers(res.data.users)
             setShowNotice(true)
             setLoad(false)
@@ -71,31 +54,22 @@ const SearchModal = ({onSearch, setOnSearch, authData}) => {
         opened = {onSearch}
         onClose = {()=> {
             setOnSearch(false);
-            setLabel('#Username: ');
-            setPlaceholder('username');
             setUsers([])
             setLoad(false)
             setSearch('')
-            setType('username')
         }}
     >
     <form action="" className='SearchForm' onSubmit={handleSearch}>
-        <h5>Choose a category below to search</h5>
+        <h5>Enter Name of user to search</h5>
         <div className='LogoSearch Header'>
             <div className="Search">
                 <label htmlFor="">
-                    {label}
+                    #Full Name:
                     <input 
                         className='Search_Input' 
                         type='text' 
-                        placeholder={placeholder}
-                        onChange={e => {
-                            if (type === 'username' || type === 'email') {
-                                setSearch(e.target.value.toLowerCase().replace(/ /g, ''))
-                            } else {
-                                setSearch(e.target.value)
-                            }
-                        }}
+                        placeholder="Nguyen Van A"
+                        onChange={e => setSearch(e.target.value)}
                         value={search}
                         required
                         ref={ref}
@@ -106,49 +80,11 @@ const SearchModal = ({onSearch, setOnSearch, authData}) => {
                 }
             </div>
         </div>
-        <div className="Type_1">
-        <label htmlFor ='username'>
-            Username   
-            <input type="radio" 
-            id='username' 
-            className = "radioInput"
-            name='type' 
-            value ="username"
-            defaultChecked
-            onClick={() => {handleClick();setLabel('#Username: ');setPlaceholder('username')}}
-            onChange={handleChange}
-            />
-        </label>
-            
-        <label htmlFor ='fullName'>
-            Full Name
-            <input type="radio" 
-            id='fullName' 
-            className = "radioInput"
-            name='type' 
-            value ="fullName"
-            onClick={() => {handleClick();setLabel('#Full Name: ');setPlaceholder('Young Woo')}}
-            onChange={handleChange}
-            />
-        </label>
-
-        <label htmlFor ='email'>
-            Email 
-            <input type="radio" 
-            id='email' 
-            className = "radioInput"
-            name='type' 
-            value ="email"
-            onClick={() => {handleClick();setLabel('#Email: ');setPlaceholder('email@example.com')}}
-            onChange={handleChange}
-            />
-        </label>
-        </div>
                 
         { load && <img className="loading" src={LoadIcon} alt="loading"  /> }
         <div className="users">
             {search.length > 0 && (( showNotice && users.length > 0) && <h6>Follow for awesome photos</h6>)}
-            {search.length > 0 && (( showNotice && users.length === 0)  && <h6>{`No one has ${type}: ${search}`}</h6>)}
+            {search.length > 0 && (( showNotice && users.length === 0)  && <h6>{`No one has name: ${search}`}</h6>)}
             {
                 (users && showNotice) && users.map(user => (
                     <Users

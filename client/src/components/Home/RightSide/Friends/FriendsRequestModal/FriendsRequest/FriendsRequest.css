@@ -1,0 +1,19 @@
+.FriendsRequest {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.InfoRequest {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.ButtonResponse {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+}
+

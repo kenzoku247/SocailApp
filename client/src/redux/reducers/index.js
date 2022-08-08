@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import admin from './adminReducer'
 import auth from './authReducer'
 import alert from './alertReducer'
 import suggest from './suggestionsReducer'
@@ -20,6 +21,7 @@ import peer from './peerReducer'
 
 
 export default combineReducers({
+    admin,
     auth, 
     discover,
     alert,

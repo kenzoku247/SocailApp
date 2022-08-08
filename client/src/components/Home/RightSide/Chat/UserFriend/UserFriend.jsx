@@ -1,10 +1,18 @@
 
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getDataAPI } from '../../../../../utils/fetchData';
 
 import './UserFriend.css'
 
-const Users = ({user}) => {
+const UserFriend = ({user}) => {
+    // console.log(user);
+    // useEffect(() => {
+    //     const fetchData = async () => {
 
+    //     }
+    //     fetchData()
+    // },[user])
   return (
     <div className="UserFriend">
         <Link to={'/'} className='UserFriend_Link'>
@@ -26,4 +34,4 @@ const Users = ({user}) => {
   )
 }
 
-export default Users
+export default UserFriend

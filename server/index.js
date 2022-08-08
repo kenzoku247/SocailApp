@@ -9,6 +9,7 @@ import path from 'path'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
+import AdminRouter from './Routes/AdminRouter.js'
 import AuthRouter from './Routes/AuthRouter.js'
 import UserRouter from './Routes/UserRouter.js'
 import PostRouter from './Routes/PostRouter.js'
@@ -29,8 +30,8 @@ dotenv.config()
 const HTTP = createServer(app)
 const io =  new Server(HTTP,    {
     cors: {
-    //   origin: 'http://localhost:3000',
-      origin: 'http://192.168.0.116:3000',
+      origin: 'http://localhost:3000',
+    //   origin: 'http://192.168.0.101:3000',
     }
 })
 
@@ -44,6 +45,7 @@ ExpressPeerServer(HTTP, { path: '/' })
 
 
 // Routes
+app.use('/admin', AdminRouter)
 app.use('/api', AuthRouter)
 app.use('/api', UserRouter)
 app.use('/api', PostRouter)

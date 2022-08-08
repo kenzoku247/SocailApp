@@ -4,9 +4,9 @@ const LoadMoreBtn = ({result, page, load, handleLoadMore}) => {
     return (
         <>
             {
-                result < 9 * (page - 1) ? '' : 
+                result < 8 * (page - 1) ? '' : 
 
-                !load && <button className="btn btn-dark mx-auto d-block"
+                !load && <button className="button fc-button"
                 onClick={handleLoadMore}>
                     Load more
                 </button>

@@ -2,6 +2,21 @@
     padding: 1rem 1rem;
     position: relative;
     display: grid;
-    grid-template-columns: 20rem auto 25rem;
+    grid-template-columns: 20vw auto 25vw;
     gap: 1rem;
+}
+
+@media only screen  and (max-width: 75vh){
+    .Home {
+        /* display: flex;
+        flex-direction:row; */
+    }
+    
+    .RightSide{
+        display: none;
+    }
+
+    /* .ProfileSide{
+        display: none;
+    } */
 }

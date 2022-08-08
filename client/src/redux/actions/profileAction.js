@@ -22,8 +22,8 @@ export const getProfileUsers = ({id, authData}) => async (dispatch) => {
 
     try {
         dispatch({type: PROFILE_TYPES.LOADING, payload: true})
-        const res = getDataAPI(`/user/${id}`, authData.token)
-        const res1 = getDataAPI(`/user_posts/${id}`, authData.token)
+        const res = getDataAPI(`user/${id}`, authData.token)
+        const res1 = getDataAPI(`user_posts/${id}`, authData.token)
         
         const users = await res;
         const posts = await res1;
@@ -200,33 +200,88 @@ export const unFollow = ({users, user, authData, socket}) => async (dispatch) =>
     }
 }
 
-export const addFriend = ({users, user, authData, socket}) => async (dispatch) => {
+export const friendRequest = ({users, user, authData, socket}) => async (dispatch) => {
     let newUser;
-    
+    // Add friendsWaitToAccept for newUser
+    console.log(users);
     if(users.every(item => item._id !== user._id)){
-        newUser = {...user, friends: [...user.friends, authData.user]}
+        newUser = {...user, friendsWaitToAccept: [...user.friendsWaitToAccept, authData.user]}
     }else{
         users.forEach(item => {
             if(item._id === user._id){
-                newUser = {...item, friends: [...item.friends, authData.user]}
+                newUser = {...item, friendsWaitToAccept: [...item.friendsWaitToAccept, authData.user]}
             }
         })
     }
-
+    // console.log(newUser);
     dispatch({ type: PROFILE_TYPES.ADDFRIEND, payload: newUser })
 
     dispatch({
         type: GLOBAL_TYPES.AUTH, 
         payload: { 
             ...authData,
-            user: {...authData.user, friends: [...authData.user.friends, newUser]}
+            user: {...authData.user, friendsRequest: [...authData.user.friendsRequest, newUser]}
+        }
+    })
+
+    try {
+        const res = await patchDataAPI(`user/${user._id}/friendRequest`, null, authData.token)
+        // console.log(res.data.newUser);
+        socket.emit('friendsRequest', res.data.newUser)
+
+        // Notify
+        // const msg = {
+        //     id: authData.user._id,
+        //     text: 'want to make friends with you.',
+        //     recipients: [user._id],
+        //     url: `/profile/${authData.user._id}`,
+        // }
+
+        // dispatch(createNotify({msg, authData, socket}))
+
+    } catch (err) {
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: err.response}
+        })
+    }
+}
+
+export const acceptFriendsRequest = ({users, user, authData, socket}) => async (dispatch) => {
+    let newUser;
+    if(users.every(item => item._id !== user._id)){
+        newUser = {...user, 
+            friends: [...user.friends, authData.user],
+            friendsRequest: DeleteData(user.friendsRequest, authData.user._id)
+        }
+    }else{
+        users.forEach(item => {
+            if(item._id === user._id){
+                newUser = {...item, 
+                    friends: [...item.friends, authData.user],
+                    friendsRequest: DeleteData(user.friendsRequest, authData.user._id)
+                }
+            }
+        })
+    }
+    dispatch({ type: PROFILE_TYPES.UNFRIEND, payload: newUser })
+    dispatch({ type: PROFILE_TYPES.ADDFRIEND, payload: newUser })
+
+    dispatch({
+        type: GLOBAL_TYPES.AUTH, 
+        payload: { 
+            ...authData,
+            user: {...authData.user, 
+                friends: [...authData.user.friends, newUser],
+                friendsWaitToAccept: authData.user.friendsWaitToAccept.filter(item => item !== newUser._id)
+            }
         }
     })
 
 
     try {
-        const res = await patchDataAPI(`user/${user._id}/addFriend`, null, authData.token)
-        socket.emit('addFriend', res.data.newUser)
+        const res = await patchDataAPI(`user/${user._id}/acceptFriend`, null, authData.token)
+        socket.emit('acceptFriendsRequest', res.data.newUser)
 
         // Notify
         const msg = {
@@ -237,6 +292,86 @@ export const addFriend = ({users, user, authData, socket}) => async (dispatch) =
         }
 
         dispatch(createNotify({msg, authData, socket}))
+
+    } catch (err) {
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: err.response}
+        })
+    }
+}
+
+export const cancelFriendsRequest = ({users, user, authData, socket}) => async (dispatch) => {
+    let newUser;
+    if(users.every(item => item._id !== user._id)){
+        newUser = {...user, friendsWaitToAccept: DeleteData(user.friendsWaitToAccept, authData.user._id)}
+    }else{
+        users.forEach(item => {
+            if(item._id === user._id){
+                newUser = {...item, friendsWaitToAccept: DeleteData(item.friendsWaitToAccept, authData.user._id)}
+            }
+        })
+    }
+
+    dispatch({ type: PROFILE_TYPES.UNFRIEND, payload: newUser })
+
+    
+    dispatch({
+        type: GLOBAL_TYPES.AUTH, 
+        payload: {
+            ...authData,
+            user: { 
+                ...authData.user, 
+                friendsRequest: DeleteData(authData.user.friendsRequest, newUser._id)
+            }
+        }
+    })
+    try {
+        const res = await patchDataAPI(`user/${user._id}/cancelFriend`, null, authData.token)
+        socket.emit('cancelFriendRequest', res.data.newUser)
+
+
+    } catch (err) {
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: err.response}
+        })
+    }
+}
+
+export const refuseFriendsRequest = ({users, user, authData, socket}) => async (dispatch) => {
+
+    let newUser;
+
+    if(users.every(item => item._id !== user._id)){
+        newUser = {...user, friendsRequest: DeleteData(user.friendsRequest, authData.user._id)}
+    }else{
+        users.forEach(item => {
+            if(item._id === user._id){
+                newUser = {...item, friendsRequest: DeleteData(item.friendsRequest, authData.user._id)}
+            }
+        })
+    }
+    console.log(newUser);
+
+    dispatch({ type: PROFILE_TYPES.UNFRIEND, payload: newUser })
+
+    dispatch({
+        type: GLOBAL_TYPES.AUTH, 
+        payload: {
+            ...authData,
+            user: { 
+                ...authData.user, 
+                friendsWaitToAccept: authData.user.friendsWaitToAccept.filter(item => item !== newUser._id)
+            }
+        }
+    })
+    try {
+
+        const res = await patchDataAPI(`user/${user._id}/refuseFriend`, null, authData.token)
+        // console.log(res.data.newUser);
+        socket.emit('refuseFriendRequest', res.data.newUser)
+
 
     } catch (err) {
         dispatch({

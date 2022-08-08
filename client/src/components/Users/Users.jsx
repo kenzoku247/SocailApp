@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addFriend, follow, unFollow, unFriend } from '../../redux/actions/profileAction';
+import { acceptFriendsRequest, cancelFriendsRequest, follow, friendRequest, refuseFriendsRequest, unFollow, unFriend } from '../../redux/actions/profileAction';
 
 import './Users.css'
 
 const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
   const [followed, setFollowed] = useState(false)
+  const [waitToAccept, setWaitToAccept] = useState(false)
   const [friended, setFriended] = useState(false)
   const [load, setLoad] = useState(false)
   const dispatch = useDispatch()
   const { profile, socket } = useSelector(state => state)
   const { authData } = useSelector(state => state.auth)
-  // console.log(profile.users, user);
 
   useEffect(() => {
     if(authData.user.followings.find(item => item._id === user._id)){
@@ -28,9 +28,7 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
     return () => setFriended(false)
   }, [authData.user.friends, user._id])
 
-  
-  
-  
+
   const handleFollow = async () => {
     if(load) return
     setFollowed(true)
@@ -49,10 +47,9 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
 
   const handleAddFriend = async () => {
     if(load) return
-    setFriended(true)
     setLoad(true)
-    
-    await dispatch(addFriend({users: profile.users, user, authData, socket}))
+    await dispatch(friendRequest({users: profile.users, user, authData, socket}))
+    setWaitToAccept(true)
     setLoad(false)
   }
 
@@ -82,25 +79,29 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
         </div>
         {
             user._id !== authData.user._id ?
-            ( location === "Friends" 
-              ? (friended
-                ? (<button className="button fc-button UnfollowButton"
-                  onClick={handleUnFriend}>
-                  UnFriend
-                </button>)
-                : <button className="button fc-button"
-                  onClick={handleAddFriend}>
-                  Add Friend
-                </button>)
-              : (followed
-                ? (<button className="button fc-button UnfollowButton"
-                  onClick={handleUnFollow}>
-                  UnFollow
-                </button>)
-                : <button className="button fc-button"
-                  onClick={handleFollow}>
-                  Follow
-                </button>)
+            ( location === "Friends"
+              ? (!friended
+                ? (waitToAccept 
+                  ? ""
+                  : <button className="button fc-button"
+                    onClick={handleAddFriend}>
+                    Add Friend
+                    </button> 
+                    )
+                : <button className="button fc-button UnfollowButton"
+                    onClick={handleUnFriend}>
+                    UnFriend
+                  </button>
+                )
+                : (followed
+                  ? (<button className="button fc-button UnfollowButton"
+                    onClick={handleUnFollow}>
+                    UnFollow
+                  </button>)
+                  : <button className="button fc-button"
+                    onClick={handleFollow}>
+                    Follow
+                  </button>)
             )
             : ""
         }

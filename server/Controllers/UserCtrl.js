@@ -1,53 +1,23 @@
 import User from '../Models/UserModel.js'
 
 const UserCtrl = {
-    searchUser: async (req, res) => {
-        try {
-            const users = await User.find({username: {$regex: req.query.username}})
-            .limit(10).select("fullName username avatar followings followers friends")
-            
-            res.json({users})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
     searchFullName: async (req, res) => {
         try {
             const users = await User.find({fullName: {$regex: req.query.fullName}})
-            .limit(10).select("fullName username avatar followings followers friends")
+            .limit(10).select("fullName username avatar followings followers friends friendsRequest friendsWaitToAccept")
             
             res.json({users})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
-    searchEmail: async (req, res) => {
-        try {
-            const users = await User.find({email: {$regex: req.query.email}})
-            .limit(10).select("fullName username avatar followings followers friends")
-            
-            res.json({users})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-
     getUser: async (req, res) => {
         try {
             const user = await User.findById(req.params.id).select('-password')
-            .populate("followers followings friends", "-password")
+            .populate("followers followings friends friendsRequest friendsWaitToAccept", "-password")
             if(!user) return res.status(400).json({msg: "User does not exist."})
             
             res.json({user})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
-    getAllUsers: async (req, res) => {
-        try {
-            const users = await User.find().select('-password')
-
-            res.json({users})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -115,19 +85,67 @@ const UserCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    addFriend: async (req,res) => {
+    friendRequest: async (req,res) => {
         try {
             const user = await User.find({_id: req.params.id, friends: req.user._id})
-            // console.log(req.params.id);
-            // console.log(req.user._id);
             if(user.length > 0) return res.status(500).json({msg: "You have friended this user."})
             
+            await User.findOneAndUpdate({_id: req.user._id}, {
+                $push: {friendsRequest: req.params.id}
+            }, {new: true})
+
             const newUser = await User.findOneAndUpdate({_id: req.params.id}, { 
-                $push: {friends: req.user._id}
+                $push: {friendsWaitToAccept: req.user._id}
+            }, {new: true}).select("-password")
+
+            res.json({newUser})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    acceptFriend: async (req,res) => {
+        try {
+            const newUser = await User.findOneAndUpdate({_id: req.params.id}, { 
+                $push: {friends: req.user._id},
+                $pull: {friendsRequest: req.user._id}
             }, {new: true}).populate("friends", "-password")
             
             await User.findOneAndUpdate({_id: req.user._id}, {
-                $push: {friends: req.params.id}
+                $push: {friends: req.params.id},
+                $pull: {friendsWaitToAccept: req.params.id}   
+            }, {new: true})
+
+            res.json({newUser})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    refuseFriend: async (req,res) => {
+        try {
+            const newUser = await User.findOneAndUpdate({_id: req.params.id}, { 
+                $pull: {friendsRequest: req.user._id}
+            }, {new: true}).select("-password")
+            
+            await User.findOneAndUpdate({_id: req.user._id}, {
+                $pull: {friendsWaitToAccept: req.params.id}
+            }, {new: true})
+
+            res.json({newUser})
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    cancelFriend: async (req,res) => {
+        try {
+            const newUser = await User.findOneAndUpdate({_id: req.params.id}, { 
+                $pull: {friendsWaitToAccept: req.user._id}
+            }, {new: true}).select("-password")
+            
+            await User.findOneAndUpdate({_id: req.user._id}, {
+                $pull: {friendsRequest: req.params.id}
             }, {new: true})
 
             res.json({newUser})

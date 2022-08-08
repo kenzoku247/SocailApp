@@ -1,0 +1,15 @@
+.FriendsRequestModal {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.WaitToAccept {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.WaitToAccept>h6 {
+    text-align: center;
+}

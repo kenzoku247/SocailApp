@@ -2,20 +2,49 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    height: 95.5vh;
 }
 
+/* @media only screen and (max-width: 1070px){
+    .RightSide {
+        flex-direction: row;
+    
+    }
+
+    .navIcons{
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+    }
+
+    .Discover {
+        display: none;
+    }
+
+    .Chat {
+        left: 0;
+    }
+} */
 
 .navIcons {
-    margin-top: 1rem;
+    /* margin-top: 0.5rem; */
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    border-radius: 10px;
+    background: var(--cardColor);
+    padding: 1rem;
 }
 
 
 .navIcons>img{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 24px;
+    height: 24px;
+}
+
+.navIcons>a>img{
+    width: 24px;
+    height: 24px;
 }
 
 

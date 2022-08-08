@@ -54,6 +54,8 @@ const UserSchema = new mongoose.Schema({
     followers: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     followings: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     friends: [{type: mongoose.Types.ObjectId, ref: 'User'}],
+    friendsRequest: [{type: mongoose.Types.ObjectId, ref: 'User'}],
+    friendsWaitToAccept : [{type: mongoose.Types.ObjectId, ref: 'User'}],
     saved: [{type: mongoose.Types.ObjectId, ref: 'User'}]
 }, {
     timestamps: true

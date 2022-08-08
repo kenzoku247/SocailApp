@@ -43,7 +43,7 @@ const Chat = ({openChat,setOpenChat}) => {
 
     const [data, setData] = useState([])
     const [result, setResult] = useState(9)
-    const pageEnd = useRef()
+    const pageEnd = useRef(null)
     const [page, setPage] = useState(0)
     const [isLoadMore, setIsLoadMore] = useState(0)
 
@@ -87,8 +87,7 @@ const Chat = ({openChat,setOpenChat}) => {
         if(message.firstLoad) return;
         dispatch(getConversations({authData}))
     },[dispatch, authData, message.firstLoad])
-    console.log(message);
-    // Load More
+
 
     useEffect(() => {
         if (idFriend) {
@@ -128,7 +127,7 @@ const Chat = ({openChat,setOpenChat}) => {
     useEffect(() => {
         if(idFriend && message.users.length > 0){
             setTimeout(() => {
-                refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+                refDisplay.current?.scrollIntoView({behavior: 'smooth', block: 'end'})
             },50)
 
             const newUser = message.users.find(user => user._id === idFriend)
@@ -148,7 +147,7 @@ const Chat = ({openChat,setOpenChat}) => {
 
         try {
             setLoad(true)
-            const res = await getDataAPI(`searchF?fullName=${search}`, authData.token)
+            const res = await getDataAPI(`search?fullName=${search}`, authData.token)
             setUsers(res.data.users)
             setShowNotice(true)
             setLoad(false)
@@ -204,7 +203,7 @@ const Chat = ({openChat,setOpenChat}) => {
         await dispatch(addMessage({msg, authData, socket}))
         // setSend(true)
         if(refDisplay.current){
-            refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+            refDisplay.current?.scrollIntoView({behavior: 'smooth', block: 'end'})
         }
     }
 
@@ -237,7 +236,7 @@ const Chat = ({openChat,setOpenChat}) => {
                 if(message.data.every(item => item._id !== idFriend)){
                     await dispatch(getMessages({authData, idFriend}))
                     setTimeout(() => {
-                        refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+                        refDisplay.current?.scrollIntoView({behavior: 'smooth', block: 'end'})
                     },50)
                 }
             }
@@ -245,6 +244,8 @@ const Chat = ({openChat,setOpenChat}) => {
         }
         
     },[idFriend, dispatch, authData, message.data])
+
+    console.log(message);
 
   return (
     <div className='Chat'>
@@ -335,13 +336,10 @@ const Chat = ({openChat,setOpenChat}) => {
                         <img src={Trash} alt="Trash" onClick={handleDeleteConversation}/>
                     </div>
                 </div>
-                <div className="Chat_Area" ref={refDisplay}>
+                <div className="Chat_Area" >
                     <button style={{opacity: 0}} ref={pageEnd}>
                         Load more
                     </button>
-                    {/* <div className='Blur' style={{right: '10%'}}></div>
-                    <div className='Blur' style={{bottom: '40%'}}></div>
-                    <div className='Blur' style={{right: '30%',bottom: '15%'}}></div> */}
                     {
                         data.map((msg, index) => (
                             <div key={index}>
@@ -367,6 +365,7 @@ const Chat = ({openChat,setOpenChat}) => {
                            <img src={LoadIcon} alt="loading" style={{width:'70px'}}/>
                        </div>
                    }
+                   <div ref={refDisplay}></div>
                 </div>
                 <div className="Show_Media" style={{display: media.length > 0 ? 'grid' : 'none'}} >
                 {

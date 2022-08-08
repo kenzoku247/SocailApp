@@ -23,7 +23,7 @@ const Auth = () => {
         email: "",
         password: "", 
         confirmPassword: "", 
-        gender: "male"
+        gender: "Male"
     }
 
     const [data, setData] = useState(initialState)
@@ -50,7 +50,7 @@ const Auth = () => {
             dispatch(register(data))
         } else {
             dispatch(login(data))
-            console.log(online);
+            // console.log(online);
         }
     }
 

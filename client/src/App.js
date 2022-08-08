@@ -19,9 +19,12 @@ import { GLOBAL_TYPES } from './redux/actions/globalTypes';
 import socketClient from 'socket.io-client';
 import ActivationEmail from './pages/auth/ActivationEmail';
 import SocketClient from './SocketClient';
+import Redirect from './components/Redirect/Redirect';
+import AdminPage from './pages/admin/AdminPage';
 
 function App() {
   const {authData} = useSelector((state)=>state.auth)
+  const { admin } = useSelector(state => state)
   const { status } = useSelector(state => state)
   
   const dispatch = useDispatch()
@@ -32,8 +35,8 @@ function App() {
     dispatch(refreshToken())
 
     // const socket = io()
-    // const socket = socketClient("http://localhost:5000",{
-    const socket = socketClient("http://192.168.0.116:5000/",{
+    const socket = socketClient("http://localhost:5000",{
+    // const socket = socketClient("http://192.168.0.101:5000",{
       transports: ["websocket"]
     });
     dispatch({type: GLOBAL_TYPES.SOCKET, payload: socket})
@@ -63,8 +66,13 @@ function App() {
   return (
 
     <div className="App">
-      <div className="blur" style={{top: '-18%',right: '0'}}></div>
-      <div className="blur" style={{top: '36%',left: '-8rem'}}></div>
+      {authData.user && (authData.user.role !== "Admin" 
+        ? <>
+            <div className="blur" style={{top: '-18%',right: '0'}}></div>
+            <div className="blur" style={{top: '36%',left: '-8rem'}}></div>
+          </>
+        : ""
+      )}
       <Alert />
       {status && <PostModal />}
       {authData.token && <SocketClient />}
@@ -74,8 +82,9 @@ function App() {
         <Route path="/api/reset/:token" exact element={<ResetPassword/>} />
         <Route path="/api/activate/:activation_token" exact element={<ActivationEmail/>}/>
 
-        <Route exact path="/:page" element={firstLogin ? <PageRender/> : <Auth/>}/>
-        <Route exact path="/:page/:id" element={firstLogin ? <PageRender/> : <Auth/>}/>
+        <Route exact path='/admin/:id' element={(authData.user && (authData.user.role !== "Admin" ? <Redirect/> : <AdminPage/>))}/>
+        <Route exact path="/:page" element={firstLogin ? <PageRender/> : <Redirect/>}/>
+        <Route exact path="/:page/:id" element={firstLogin ? <PageRender/> : <Redirect/>}/>
       </Routes>
     </div>
   );

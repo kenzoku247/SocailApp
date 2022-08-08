@@ -3,12 +3,6 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import SendMail from './SendMail.js'
 
-import { google } from 'googleapis';
-const {OAuth2} = google.auth
-import fetch from 'node-fetch'
-
-const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
-
 const {CLIENT_URL} = process.env
 
 const AuthCtrl = {
@@ -90,6 +84,7 @@ const AuthCtrl = {
             .populate("followers followings friends", "avatar backgroundCover email fullName followers followings friends")
 
             if(!user) return res.status(400).json({msg: "This user does not exist."})
+
 
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})

@@ -7,7 +7,7 @@ import FollowersModal from "../../../FollowersModal/FollowersModal";
 import FollowingsModal from "../../../FollowingsModal/FollowingsModal";
 import { GLOBAL_TYPES } from "../../../../redux/actions/globalTypes";
 
-const ProfileCard = ({ProfilePage, id, profile,dispatch, authData}) => {
+const ProfileCard = ({ProfilePage, id, profile,dispatch, authData, location}) => {
   const [userData, setUserData] = useState([])
   const [showFollowers, setShowFollowers] = useState(false)
   const [showFollowings, setShowFollowings] = useState(false)
@@ -26,6 +26,7 @@ const ProfileCard = ({ProfilePage, id, profile,dispatch, authData}) => {
   useEffect(() => {
     if (ProfilePage) {
       setNo_posts(profile.posts.filter(post => post._id === id))
+      
     }
   },[id,profile.posts, ProfilePage])
   useEffect(() => {
@@ -65,15 +66,27 @@ const ProfileCard = ({ProfilePage, id, profile,dispatch, authData}) => {
               </span>
             </div>
 
-            {ProfilePage && (
-              <>
-                <div className="Vl"></div>
-                <div className="Follow">
-                  <span>{no_posts[0] ? no_posts[0].posts.length : ""}</span>
-                  <span>Posts</span>
-                </div>
-              </>
-            )}
+            { 
+              location !== "saved" 
+              ? (ProfilePage && (
+                <>
+                  <div className="Vl"></div>
+                  <div className="Follow">
+                    <span>{no_posts[0] ? no_posts[0].posts.length : ""}</span>
+                    <span>{no_posts[0] ? (no_posts[0].posts.length > 1 ? "Posts" : "Post") : ""}</span>
+                  </div>
+                </>
+              ))
+              : (
+                <>
+                  <div className="Vl"></div>
+                  <div className="Follow">
+                    <span>{authData.user.saved.length}</span>
+                    <span>{authData.user.saved.length > 1 ? "Saved Posts" : "Saved Post"}</span>
+                  </div>
+                </>
+              )
+          }
           </div>
           <hr />
         </div>

@@ -88,6 +88,30 @@ const SocketClient = () => {
 
     // Friend
     useEffect(() => {
+        socket.on('friendsRequestToClient', newUser =>{
+            dispatch({type: GLOBAL_TYPES.AUTH, payload: {...authData, user: newUser}})
+        })
+
+        return () => socket.off('friendsRequestToClient')
+    },[socket, dispatch, authData])
+
+    useEffect(() => {
+        socket.on('cancelFriendsRequestToClient', newUser =>{
+            dispatch({type: GLOBAL_TYPES.AUTH, payload: {...authData, user: newUser}})
+        })
+
+        return () => socket.off('cancelFriendsRequestToClient')
+    },[socket, dispatch, authData])
+
+    useEffect(() => {
+        socket.on('refuseFriendsRequestToClient', newUser =>{
+            dispatch({type: GLOBAL_TYPES.AUTH, payload: {...authData, user: newUser}})
+        })
+
+        return () => socket.off('refuseFriendsRequestToClient')
+    },[socket, dispatch, authData])
+    
+    useEffect(() => {
         socket.on('addFriendToClient', newUser =>{
             dispatch({type: GLOBAL_TYPES.AUTH, payload: {...authData, user: newUser}})
         })
@@ -210,7 +234,16 @@ const SocketClient = () => {
         return () => socket.off('userBusy')
     },[socket, dispatch, call])
 
+    // Admin
 
+    // Update Role
+    useEffect(() => {
+        socket.on('updateRoleUserToClient', ({newUser}) =>{
+            console.log(newUser);
+            dispatch({type: GLOBAL_TYPES.AUTH, payload: {...authData, user: newUser}})
+        })
+        return () => socket.off('updateRoleUserToClient')
+    },[socket, dispatch, authData])
 
     return (
         <>

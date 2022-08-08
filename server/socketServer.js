@@ -105,7 +105,21 @@ const SocketServer = (socket) => {
     })
 
     // Friend
-    socket.on('addFriend', newUser => {
+    socket.on('friendsRequest', newUser => {
+        const user = users.find(user => user.id === newUser._id)
+        user && socket.to(`${user.socketId}`).emit('friendsRequestToClient', newUser)
+    })
+
+    socket.on('cancelFriendRequest', newUser => {
+        const user = users.find(user => user.id === newUser._id)
+        user && socket.to(`${user.socketId}`).emit('cancelFriendsRequestToClient', newUser)
+    })
+
+    socket.on('refuseFriendRequest', newUser => {
+        const user = users.find(user => user.id === newUser._id)
+        user && socket.to(`${user.socketId}`).emit('refuseFriendsRequestToClient', newUser)
+    })
+    socket.on('acceptFriendsRequest', newUser => {
         const user = users.find(user => user.id === newUser._id)
         user && socket.to(`${user.socketId}`).emit('addFriendToClient', newUser)
     })
@@ -132,7 +146,6 @@ const SocketServer = (socket) => {
     // Message
     socket.on('addMessage', msg => {
         const user = users.find(user => user.id === msg.recipient)
-        // console.log(users);
         user && socket.to(`${user.socketId}`).emit('addMessageToClient', msg)
     })
 
@@ -194,6 +207,15 @@ const SocketServer = (socket) => {
             }
         }
     })
+
+    // Admin 
+
+    //Update Role
+    socket.on('updateRoleUser', (admin,{newUser}) => {
+        const user = admin.users.find(user => user._id === newUser._id)
+        user && socket.to(`${user.socketId}`).emit('updateRoleUserToClient', newUser)
+    })
+
 }
 
 export default SocketServer

@@ -13,9 +13,9 @@ const Home = () => {
 
   return (
     <div className='Home'>
-        <ProfileSide/>
-        <PostSide location = {"home"} authData={authData} profile={profile} dispatch={dispatch} id={authData.user._id}/>
-        <RightSide/>
+        <ProfileSide className="ProfileSide"/>
+        <PostSide className="PostSide" location = {"home"} authData={authData} profile={profile} dispatch={dispatch} id={authData.user._id}/>
+        <RightSide className="RightSide"/>
     </div>
   )
 }
