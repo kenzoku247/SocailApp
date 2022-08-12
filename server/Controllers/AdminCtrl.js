@@ -1,5 +1,6 @@
 import Admin from "../Models/AdminModel.js";
 import User from "../Models/UserModel.js";
+import Post from "../Models/PostModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import SendPasswordToAdmin from './SendPasswordToAdmin.js'
@@ -77,7 +78,7 @@ const AdminCtrl = {
                 res.cookie('refreshAdminToken', refresh_admin_token, {
                     httpOnly: true,
                     path: '/admin/refresh_admin_token',
-                    maxAge: 1*60*60*1000 // 1 hours
+                    maxAge: 5*60*60*1000 // 5 hours
                 })
 
                 res.json({msg: 'Login Success!',access_admin_token,})
@@ -112,11 +113,29 @@ const AdminCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    searchUser: async (req, res) => {
+        try {
+            const users = await User.find({fullName: {$regex: req.query.fullName}})
+            
+            res.json({users})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     getAllUsers: async (req, res) => {
         try {
             const users = await User.find().select('-password')
 
             res.json({users})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    getAllPosts: async (req, res) => {
+        try {
+            const posts = await Post.find().sort('-createdAt')
+
+            res.json({posts})
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
@@ -135,9 +154,34 @@ const AdminCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+    setDisable: async (req, res) => {
+        const {isDisabled} = req.body
+        try {
+            const user = await User.findOneAndUpdate(
+                {_id: req.params.id},
+                {isDisabled: !isDisabled}, 
+                {new: true}
+            )
+
+            res.json({user})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
     deleteUser: async (req, res) => {
         try {
             await User.findByIdAndDelete(req.params.id)
+
+            await Post.deleteMany({user: req.params.id})
+
+            res.json({msg: "Deleted Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    deletePost: async (req, res) => {
+        try {
+            await Post.findByIdAndDelete(req.params.id)
 
             res.json({msg: "Deleted Success!"})
         } catch (err) {

@@ -28,7 +28,7 @@ const Friends = () => {
 
     const handleClick = () => {
         ref.current.focus();
-    };
+}
 
     useEffect(() => {
         if (search.length === 0) {

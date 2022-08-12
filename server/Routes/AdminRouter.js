@@ -13,11 +13,19 @@ router.post('/refresh_admin_token',Auth, AuthAdmin, AdminCtrl.generateAdminAcces
 
 router.post('/logout', AdminCtrl.logout)
 
+router.get('/search', Auth, AdminCtrl.searchUser)
+
 router.get('/user',Auth, AuthAdmin, AdminCtrl.getAllUsers)
+
+router.get('/post',Auth, AuthAdmin, AdminCtrl.getAllPosts)
 
 router.patch('/setRole/:id',Auth, AuthAdmin, AdminCtrl.setRole)
 
-router.delete('/delete/:id',Auth, AuthAdmin, AdminCtrl.deleteUser)
+router.patch('/setDisable/:id',Auth, AuthAdmin, AdminCtrl.setDisable)
+
+router.delete('/deleteUser/:id',Auth, AuthAdmin, AdminCtrl.deleteUser)
+
+router.delete('/deletePost/:id',Auth, AuthAdmin, AdminCtrl.deletePost)
 
 
 export default router

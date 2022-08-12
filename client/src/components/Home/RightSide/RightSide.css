@@ -71,3 +71,8 @@
     right: 9px;
 
 }
+
+.dropdown-item>a {
+    text-decoration: none;
+    color: black;
+}

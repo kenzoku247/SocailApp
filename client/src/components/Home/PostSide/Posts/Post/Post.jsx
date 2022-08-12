@@ -152,19 +152,19 @@ const Post = ({post, theme, user, location}) => {
           </div>
         </div>
         <div className="Content">
-          <span>
+          <span style={{"textAlign":"justify"}}>
               {
                   post.content.length < 60 
                   ? post.content 
                   : readMore ? post.content + ' ' : post.content.slice(0, 60) + '.....'
               }
+            {
+                post.content.length > 60 &&
+                <span className="readMore" onClick={() => setReadMore(!readMore)} style={{cursor:"pointer",color:"blue"}}>
+                    {readMore ? '  Hide content' : '  Read more'}
+                </span>
+            }
           </span>
-          {
-              post.content.length > 60 &&
-              <span className="readMore" onClick={() => setReadMore(!readMore)} style={{cursor:"pointer",color:"blue"}}>
-                  {readMore ? '  Hide content' : '  Read more'}
-              </span>
-          }
         </div>
         {
           post.images.length > 0 && 

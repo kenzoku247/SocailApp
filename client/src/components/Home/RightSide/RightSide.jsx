@@ -29,6 +29,9 @@ const RightSide = () => {
   // console.log(notify.data);
   const readAll = notify.data.every(noti => (noti.isRead === true))
 
+  const adminLogin = localStorage.getItem('AdminLogin')
+  if (adminLogin) localStorage.removeItem('AdminLogin')
+
   const handleLogout =() => {
     dispatch(logout())
   }
@@ -58,7 +61,8 @@ const RightSide = () => {
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu3">
             <h3 style={{padding:'0 8px',fontWeight:'bold'}}>Setting</h3>
             <hr className="mt-0" />
-            {authData.user.role === "Admin" && <li><Link to={`/admin/${authData.user._id}`}><button className="dropdown-item" type="button">Administrator</button></Link></li>}
+            {authData.user.role === "Admin" && <li><button className="dropdown-item" type="button"><Link to={`/admin/${authData.user._id}`}>Administrator</Link></button></li>}
+            <li><button className="dropdown-item" type="button"><Link to={'/about'}>About Us</Link></button></li>
             <li><button className="dropdown-item" type="button"  onClick={handleLogout}>Log Out</button></li>
 
           </ul>

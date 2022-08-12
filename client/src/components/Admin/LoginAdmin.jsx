@@ -24,7 +24,11 @@ const LoginAdmin = () => {
     
     const handleChange = (e) => {
         setData({...data, [e.target.name]: e.target.value})
+
+
     }
+
+
 
     const handleGetPassword = async () => {
         console.log(username);

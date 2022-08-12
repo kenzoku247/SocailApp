@@ -202,32 +202,6 @@ const PostModal = () => {
           ))}
         </div>
         : "" }
-        {/* {
-          stream && 
-          <div className="stream position-relative">
-              <video autoPlay muted ref={videoRef} width="100%" height="100%"
-              style={{filter: theme ? 'invert(1)' : 'invert(0)'}} />
-              
-              <span onClick={handleStopStream}>&times;</span>
-              <canvas ref={refCanvas} style={{display: 'none'}} />
-          </div>
-        }
-        <div className="input_images">
-          {
-              stream 
-              ? <i className="fas fa-camera" onClick={handleCapture} />
-              : <>
-                  <i className="fas fa-camera" onClick={handleStream} />
-
-                  <div className="file_upload">
-                      <i className="fas fa-image" />
-                      <input type="file" name="file" id="file"
-                      multiple accept="image/*,video/*" onChange={onImageChange} />
-                  </div>
-              </>
-          }
-          
-        </div> */}
       </div>
     </div>
     </Modal>

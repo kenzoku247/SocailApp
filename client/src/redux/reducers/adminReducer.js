@@ -15,6 +15,11 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 users: [...action.payload.users]
             }
+        case ADMIN_TYPES.ADMIN_GET_POSTS:
+            return {
+                ...state,
+                posts: [...action.payload.posts]
+            }
         case ADMIN_TYPES.LOAD_USERS:
             return {
                 ...state,
