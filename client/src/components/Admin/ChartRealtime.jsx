@@ -1,9 +1,47 @@
 import React from 'react'
+import Chart from "react-apexcharts";
 
-const ChartRealtime = () => {
-    const series = [{
-        data: data.slice()
-      }]
+const ChartRealtime = ({admin,dispatch, authData}) => {
+    let firstDayToToday = []
+    let userCreated= []
+    let postCreated = []
+
+    if (admin.users.length > 0) {
+        userCreated = admin.users.map(user => new Date(user.createdAt.slice(0,10)).getTime())
+        postCreated = admin.posts.map(post => new Date(post.createdAt.slice(0,10)).getTime())
+        const firstDay = admin.users[0].createdAt.slice(0,10)
+        const today = new Date().getTime()
+
+        let x = new Date(firstDay).getTime()
+        
+        while (x <= new Date(today).getTime()) {
+            firstDayToToday.push(x)
+            x += 60*60*24*1000
+        }
+    
+    }
+
+    const series = [
+        {
+        name: "New Posts",
+        data: 
+            firstDayToToday.map(day => 
+                ({
+                    x: day,
+                    y: userCreated.filter(date => date === day).length
+                })
+            )
+        },
+        {
+        name: "New Users",
+        data: firstDayToToday.map(day => 
+            ({
+                x: day,
+                y: postCreated.filter(date => date === day).length
+            })
+        )
+        }
+      ]
 
     const options = {
         chart: {
@@ -31,7 +69,7 @@ const ChartRealtime = () => {
             curve: 'smooth'
         },
         title: {
-            text: 'Dynamic Updating Chart',
+            text: 'Realtime Chart',
             align: 'left'
         },
         markers: {
@@ -39,7 +77,7 @@ const ChartRealtime = () => {
         },
         xaxis: {
             type: 'datetime',
-            range: XAXISRANGE,
+            // range: XAXISRANGE,
         },
         yaxis: {
             max: 24,
@@ -53,7 +91,7 @@ const ChartRealtime = () => {
     
     
   return (
-    <div>ChartRealtime</div>
+    <Chart options={options} series={series} type="line" height={350} />
   )
 }
 
