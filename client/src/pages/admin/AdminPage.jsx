@@ -2,7 +2,7 @@ import React, { useEffect,  } from 'react'
 import LoginAdmin from '../../components/Admin/LoginAdmin'
 import './AdminPage.css'
 import { useDispatch, useSelector } from 'react-redux'
-import Dashboard from '../../components/Admin/Dashboard'
+import Manager from '../../components/Admin/Manager'
 import { refreshAdminToken } from '../../redux/actions/adminAction'
 
 const AdminPage = () => {
@@ -17,7 +17,7 @@ const AdminPage = () => {
   const { admin } = useSelector(state => state)
 
   return (
-      !admin.token ?  <LoginAdmin/> : <Dashboard/>
+      !admin.token ?  <LoginAdmin/> : <Manager/>
   )
 }
 

@@ -89,6 +89,8 @@ const AuthCtrl = {
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
 
+            if(user.isDisabled) return res.status(400).json({msg: "This account has been banned."})
+
             const access_token = createAccessToken({id: user._id})
             const refresh_token = createRefreshToken({id: user._id})
 
@@ -150,6 +152,8 @@ const AuthCtrl = {
             // console.log(user.password);
             if(!user) return res.status(400).json({msg: "This email does not exist."})
 
+            if(user.isDisabled) return res.status(400).json({msg: "This account has been banned."})
+
             const access_token = createAccessToken({id: user._id})
             const url = `${CLIENT_URL}/api/reset/${access_token}`
 
@@ -205,6 +209,8 @@ const AuthCtrl = {
             if(user){
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+
+                if(user.isDisabled) return res.status(400).json({msg: "This account has been banned."})
                 
                 const access_token = createAccessToken({id: user._id})
                 const refresh_token = createRefreshToken({id: user._id})

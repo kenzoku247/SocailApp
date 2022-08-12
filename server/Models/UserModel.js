@@ -56,7 +56,11 @@ const UserSchema = new mongoose.Schema({
     friends: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     friendsRequest: [{type: mongoose.Types.ObjectId, ref: 'User'}],
     friendsWaitToAccept : [{type: mongoose.Types.ObjectId, ref: 'User'}],
-    saved: [{type: mongoose.Types.ObjectId, ref: 'User'}]
+    saved: [{type: mongoose.Types.ObjectId, ref: 'User'}],
+    isDisabled: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 })
