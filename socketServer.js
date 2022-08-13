@@ -13,12 +13,9 @@ const SocketServer = (socket) => {
     socket.on('joinUser', user => {
         !users.some((user) => user.socketId === socket.id) &&
         users.push({id: user._id, socketId: socket.id, followers: user.followers, friends: user.friends})
-        // console.log(user);
-        // console.log(users.length);
     })
 
     socket.on('disconnect', () => {
-        // console.log(`User with id ${socket.id} disconnected`);
         const data = users.find(user => user.socketId === socket.id)
         if(data){
             const clients = users.filter(user => 
