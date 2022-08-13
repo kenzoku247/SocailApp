@@ -9,7 +9,6 @@ const AdminCtrl = {
     getPassword: async (req, res) => {
         try {
             const { username } = req.body
-            console.log(username);
             const idAdmin = req.params.id
 
             const newPassword = (Math.random().toString(36).slice(-10) + Math.random().toString(36).slice(-10))
@@ -94,7 +93,7 @@ const AdminCtrl = {
             if(!rf_admin_token) return res.status(400).json({msg: "Please login now."})
 
             jwt.verify(rf_admin_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {
-                const access_admin_token = createAccessToken({id: result.id})
+                const access_admin_token = createAccessToken({id: result && result.id})
 
                 res.json({
                     access_admin_token

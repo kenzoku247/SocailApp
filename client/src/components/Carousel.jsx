@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const Carousel = ({post}) => {
 
-    // const {images, id} = post
+    const [image, setImage] = useState()
 
     const [openImage, setOpenImage] = useState(false)
     const isActive = index => {
@@ -43,9 +43,9 @@ const Carousel = ({post}) => {
                                 }
                             </Link>
                             <div className="Zoom_In">
-                                <img src={ZoomIn} alt="" onClick={() => setOpenImage(true)}/>
+                                <img src={ZoomIn} alt="" onClick={() => {setOpenImage(true);setImage(img.url)}}/>
                             </div>
-                            <ImageModal openImage={openImage} setOpenImage={setOpenImage} image={img.url}/>
+                            <ImageModal openImage={openImage} setOpenImage={setOpenImage} image={image}/>
                         </div>
                     ))
                 }

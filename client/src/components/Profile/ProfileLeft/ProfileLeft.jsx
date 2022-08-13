@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 const ProfileLeft = () => {
-  const [saveTab, setSaveTab] = useState(false)
 const { profile } = useSelector(state => state)
   const { authData } = useSelector(state => state.auth)
-  // console.log(profile);
   
   const dispatch = useDispatch()
 
@@ -18,10 +16,10 @@ const { profile } = useSelector(state => state)
 
   return (
     <div className='ProfileSide'>
-        <LogoSearch/>
+        <LogoSearch location="profile"/>
         <InfoCard key={id} authData={authData} profile={profile} dispatch={dispatch} id={id}/>
         { id === authData.user._id 
-        ? <FollowersCard authData={authData} profile={profile} dispatch={dispatch} id={id}/>
+        ? <FollowersCard location="profile" authData={authData} profile={profile} dispatch={dispatch} id={id}/>
         : ""
         }
         

@@ -1,9 +1,10 @@
 .Home {
-    padding: 1rem 1rem;
+    padding: 0.5rem;
     position: relative;
     display: grid;
     grid-template-columns: 20vw auto 25vw;
     gap: 1rem;
+    height: 100vh;
 }
 
 @media only screen  and (max-width: 75vh){

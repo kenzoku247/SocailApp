@@ -7,15 +7,18 @@ import { useState } from 'react'
 import SearchModal from '../../../SearchModal/SearchModal'
 import { useSelector } from 'react-redux'
 
-const LogoSearch = () => {
+const LogoSearch = ({setRefresh, location}) => {
   const { authData } = useSelector(state => state.auth)
   const [onSearch, setOnSearch] = useState(false)
 
   return (
     <div className='LogoSearch Header'>
-        <Link to="/">
-          <img src={Logo} alt="" />
-        </Link>
+        {location === "profile"
+        ? <Link to="/">
+            <img src={Logo} alt=""/>
+          </Link>
+        : <img src={Logo} alt="" onClick={() => setRefresh(true)}/>
+        }
         <div className="Search">
           <button onClick={() => setOnSearch(true)}>
             #Explore

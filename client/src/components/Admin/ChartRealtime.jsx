@@ -23,7 +23,7 @@ const ChartRealtime = ({admin,dispatch, authData}) => {
 
     const series = [
         {
-        name: "New Posts",
+        name: "New Users",
         data: 
             firstDayToToday.map(day => 
                 ({
@@ -33,7 +33,7 @@ const ChartRealtime = ({admin,dispatch, authData}) => {
             )
         },
         {
-        name: "New Users",
+        name: "New Posts",
         data: firstDayToToday.map(day => 
             ({
                 x: day,

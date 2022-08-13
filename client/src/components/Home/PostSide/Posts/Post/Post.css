@@ -5,6 +5,7 @@
     background-color: var(--inputColor);
     border-radius: 1rem;
     gap: 1rem;
+    overflow-y: auto;
 }
 
 .PostHeader {

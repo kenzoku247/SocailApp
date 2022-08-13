@@ -1,10 +1,13 @@
 .ImageModal {
     display: flex;
     justify-content: center;
+    height: 76vh;
 }
 
-.ImageOnModal {
-    max-height: 80vh;
+
+.ImageModal>img {
+    height: 100%;
+    width: auto;
 
 }
 

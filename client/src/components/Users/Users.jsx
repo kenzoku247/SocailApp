@@ -73,7 +73,7 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
                 </span>
               </Link>
               <span >
-                @{user.username}
+                @{user.username.length > 10 ? user.username.slice(0,10) + " . . ." : user.username}
               </span>
           </div>
         </div>

@@ -4,10 +4,12 @@ import PostsHome from './Posts/Posts'
 import PostsProfile from '../../Profile/Posts/Posts'
 import './PostSide.css'
 
-const PostSide = ({location, authData, profile, dispatch, id}) => {
+const PostSide = ({refresh, setRefresh, location, authData, profile, dispatch, id}) => {
 
   const followed = authData.user.followings.find(follow => follow._id === id)
   // console.log(followed);
+
+
   return (
     <div className='PostSide'>
       { id === authData.user._id 
@@ -16,7 +18,7 @@ const PostSide = ({location, authData, profile, dispatch, id}) => {
       }
       {
         location === "home" ?
-        <PostsHome />
+        <PostsHome refresh={refresh} setRefresh={setRefresh} />
         : (
           id === authData.user._id 
           ? <PostsProfile authData={authData} profile={profile} dispatch={dispatch} id={id}/>

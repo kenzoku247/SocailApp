@@ -6,7 +6,7 @@ import Reload from '../../../../images/reload.png'
 import LoadGif from '../../../../images/loading.gif'
 import { getSuggestions } from '../../../../redux/actions/suggestionsAction'
 
-const FollowersCard = ({id, authData, profile, }) => {
+const FollowersCard = ({id, authData, profile, location}) => {
   const dispatch = useDispatch()
   const { suggest } = useSelector(state => state)
 
@@ -26,13 +26,23 @@ const FollowersCard = ({id, authData, profile, }) => {
       {
         suggest.loading
         ? <img src={LoadGif} alt="loading"/>
-        : <div className="suggestions" style={{}}>
+        : (location === "profile" 
+           ?<div className="suggestions" style={{"height": "380px"}}>
             {
                 suggest.users.map(user => (
                     <Users key={user._id} user={user}/>
                 ))
             }
-        </div>
+          </div>
+          : <div className="suggestions"  style={{"height": "190px"}}>
+            {
+                suggest.users.map(user => (
+                    <Users key={user._id} user={user}/>
+                ))
+            }
+          </div>
+          )
+          
       }
       </div>
   )

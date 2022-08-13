@@ -5,14 +5,13 @@ import { useDispatch } from 'react-redux';
 
 const ImageModal = ({openImage, setOpenImage, image}) => {
     const theme = useMantineTheme();
-    const dispatch = useDispatch()
 
     return (
         <Modal
             overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
             overlayOpacity={0.55}
             overlayBlur={3}
-            size='100%'
+            size='auto'
             // fullscreen
             transition="fade"
             transitionDuration={600}

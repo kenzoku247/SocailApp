@@ -14,7 +14,7 @@ const FollowersModal = ({ users, showFollowers, setShowFollowers }) => {
       }
       overlayOpacity={0.55}
       overlayBlur={3}
-      size="55%"
+      size="30%"
       opened={showFollowers}
       onClose={() => setShowFollowers(false)}
     >
