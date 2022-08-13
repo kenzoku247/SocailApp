@@ -57,10 +57,10 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
         <h3>Manager Posts</h3>
         <div className="PostList">
             <div className="PostListHeader">
-                <h5>User list</h5>
+                <h5>Posts list</h5>
                 <form action="" onSubmit={handleSearch}>
                     <input 
-                        className='' 
+                        className='input-search' 
                         type='text' 
                         placeholder='Search User'
                         onChange={e => setSearch(e.target.value)}

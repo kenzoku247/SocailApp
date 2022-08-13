@@ -25,6 +25,8 @@ router.patch('/setDisable/:id',Auth, AuthAdmin, AdminCtrl.setDisable)
 
 router.delete('/deleteUser/:id',Auth, AuthAdmin, AdminCtrl.deleteUser)
 
+router.post('/createUser',Auth, AuthAdmin, AdminCtrl.createUser)
+
 router.delete('/deletePost/:id',Auth, AuthAdmin, AdminCtrl.deletePost)
 
 

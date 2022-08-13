@@ -3,6 +3,10 @@
     gap: 0.75rem;  
 }
 
+.LogoSearch>a>img {
+    width: 40px;
+}
+
 .Header {
     position: sticky;
 }

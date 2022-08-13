@@ -179,6 +179,39 @@ const AdminCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    createUser: async (req, res) => {
+        try {
+            const { firstName, lastName, username, email, password, gender } = req.body
+            const newFullName = firstName + ' ' + lastName
+            let newUserName = username.toLowerCase().replace(/ /g, '')
+
+            const user_email = await User.findOne({email})
+            if(user_email) return res.status(400).json({msg: "This email already exists."})
+            
+            const user_name = await User.findOne({username: newUserName})
+            if(user_name) return res.status(400).json({msg: "This user name already exists."})
+
+            if(password.length < 6)
+            return res.status(400).json({msg: "Password must be at least 6 characters."})
+
+            const passwordHash = await bcrypt.hash(password, 12)
+
+            const newUser = new User({
+                firstName, lastName, fullName: newFullName, username: newUserName, email, password: passwordHash, gender
+            })
+
+            await newUser.save()
+
+            const resUser = await User.findOne({email: email}).select('-password')
+
+            res.json({
+                msg: "Deleted Success!",
+                user: resUser
+            })
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     deletePost: async (req, res) => {
         try {
             await Post.findByIdAndDelete(req.params.id)

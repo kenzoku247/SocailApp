@@ -30,7 +30,7 @@ const Manager = () => {
   return (
     <div className='Manager'>
         <div className="NavbarManager">
-            <h1>Admin</h1>
+            <h1 style={{"fontFamily": "Georgia, serif"}}>Admin</h1>
             <button className='button' onClick={handleLogout}>
                 Logout
             </button>
@@ -38,7 +38,6 @@ const Manager = () => {
         <div className="BodyManager">
             <div className='RightManager'>
                 <div className="ButtonRight">
-                    <button>Hide Menu</button>
                     <button onClick={() => (
                         setTitle('Dashboard')
                         )}>

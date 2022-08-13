@@ -31,7 +31,7 @@ const UserCtrl = {
             const newFullName = firstName + ' ' + lastName
 
             await User.findOneAndUpdate({_id: req.user._id}, {
-                avatar, backgroundCover, fullName: newFullName, mobile, address, story, website, gender
+                firstName: firstName,lastName: lastName, avatar, backgroundCover, fullName: newFullName, mobile, address, story, website, gender
             })
 
             res.json({msg: "Update Success!"})

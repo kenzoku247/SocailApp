@@ -3,12 +3,14 @@ import { deleteUser, searchUser, setDisable, setRole } from '../../redux/actions
 import { GLOBAL_TYPES } from '../../redux/actions/globalTypes'
 import { getAdminDataAPI, getDataAPI } from '../../utils/fetchData'
 import './Admin.css'
+import CreateUserModal from './CreateUserModal/CreateUserModal'
 
 const UserManager = ({admin, dispatch, authData, socket}) => {
 
     
     const [search, setSearch] = useState('')
     const [users, setUsers] = useState([])
+    const [openCreateUserModal,setOpenCreateUserModal] = useState(false)
 
     const handleSetRole = async (user) => {
         if(window.confirm(`Do you want to set this user as ${user.role  === "User" ? "Admin" : "User"}?`)){
@@ -51,10 +53,10 @@ const UserManager = ({admin, dispatch, authData, socket}) => {
 
   return (
     <div className="UserManager">
-        <h3>User Manager</h3>
+        <h3>Manager Users</h3>
         <div className="UserList">
             <div className="UserListHeader">
-                <h5>User list</h5>
+                <h5>Users list</h5>
                 <form action="" onSubmit={handleSearch}>
                     <input 
                         className='input-search' 
@@ -64,6 +66,8 @@ const UserManager = ({admin, dispatch, authData, socket}) => {
                         value={search}
                     />
                 </form>
+                <button className='NewUser' onClick={() => setOpenCreateUserModal(true)}>New User</button>
+                {openCreateUserModal && <CreateUserModal openCreateUserModal={openCreateUserModal} setOpenCreateUserModal={setOpenCreateUserModal}/>}
             </div>
             <div className="UserListField">
                 <div className="FieldUserName">

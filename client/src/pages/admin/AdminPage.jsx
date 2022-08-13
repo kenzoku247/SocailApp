@@ -10,7 +10,6 @@ const AdminPage = () => {
   const {authData} = useSelector(state => state.auth)
 
   useEffect(() => {
-    
     dispatch(refreshAdminToken({authData}))
   },[dispatch,authData])
 

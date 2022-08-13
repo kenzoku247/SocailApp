@@ -1,6 +1,6 @@
-import { GLOBAL_TYPES, DeleteData, EditData } from './globalTypes'
+import { GLOBAL_TYPES, DeleteData, EditData, AddData } from './globalTypes'
 import { deleteAdminDataAPI, getAdminDataAPI, patchAdminDataAPI, postAdminDataAPI } from '../../utils/fetchData'
-import { validPassword } from '../../utils/valid'
+import { valid, validPassword } from '../../utils/valid'
 
 export const ADMIN_TYPES = {
     LOAD_USERS: "LOAD_USERS",
@@ -193,6 +193,25 @@ export const deleteUser = ({id,admin,authData}) => async (dispatch) => {
         })
 
         await deleteAdminDataAPI(`deleteUser/${id}` , authData.token)
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: error.response}
+        })
+    }
+}
+
+export const createUser = ({data,admin,authData}) => async (dispatch) => {
+    const check = valid(data)
+    if(check.errLength > 0)
+    return dispatch({type: GLOBAL_TYPES.ALERT, payload: check.errMsg})
+    try {
+        const res  = await postAdminDataAPI(`createUser` , data, authData.token)
+        dispatch({
+            type: ADMIN_TYPES.ADMIN_GET_USERS,
+            payload: {users: AddData(admin.users, res.data.user)}
+        })
     } catch (error) {
         console.log(error);
         dispatch({

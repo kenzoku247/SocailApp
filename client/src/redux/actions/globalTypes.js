@@ -24,3 +24,8 @@ export const DeleteData = (data, id) => {
     const newData = data.filter(item => (item._id ? item._id : item) !== id)
     return newData;
 }
+
+export const AddData = (data,post) => {
+    const newData = data.push(post)
+    return newData;
+}
