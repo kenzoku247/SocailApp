@@ -16,6 +16,10 @@ import PostRouter from './Routes/PostRouter.js'
 import CommentRouter from './Routes/CommentRouter.js'
 import NotifyRouter from './Routes/NotifyRouter.js'
 import MessageRouter from './Routes/MessageRouter.js'
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 const app = express()
@@ -31,7 +35,6 @@ const HTTP = createServer(app)
 const io =  new Server(HTTP,    {
     cors: {
       origin: 'https://kma-network.herokuapp.com',
-    //   origin: 'http://192.168.0.101:3000',
     }
 })
 
@@ -64,6 +67,7 @@ mongoose.connect(URI, {
 })
 
 if(process.env.NODE_ENV === 'production'){
+    console.log(__dirname);
     app.use(express.static('client/build'))
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
