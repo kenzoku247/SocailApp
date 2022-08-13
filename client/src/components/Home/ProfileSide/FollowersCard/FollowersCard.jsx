@@ -11,7 +11,7 @@ const FollowersCard = ({id, authData, profile, }) => {
   const { suggest } = useSelector(state => state)
 
   return (
-    <div className='FollowersCard'>
+    <div className='FollowersCard' >
       <div className="FollowersCard__Header">
         <h5 style={{fontWeight:"bold"}}>People may you know</h5>
         {
@@ -26,7 +26,7 @@ const FollowersCard = ({id, authData, profile, }) => {
       {
         suggest.loading
         ? <img src={LoadGif} alt="loading"/>
-        : <div className="suggestions">
+        : <div className="suggestions" style={{}}>
             {
                 suggest.users.map(user => (
                     <Users key={user._id} user={user}/>
