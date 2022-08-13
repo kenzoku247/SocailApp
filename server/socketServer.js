@@ -14,7 +14,7 @@ const SocketServer = (socket) => {
         !users.some((user) => user.socketId === socket.id) &&
         users.push({id: user._id, socketId: socket.id, followers: user.followers, friends: user.friends})
         // console.log(user);
-        console.log(users.length);
+        // console.log(users.length);
     })
 
     socket.on('disconnect', () => {
