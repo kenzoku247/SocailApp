@@ -34,9 +34,7 @@ function App() {
   useEffect(() => {
     dispatch(refreshToken())
 
-    // const socket = io()
-    const socket = socketClient("http://localhost:5000",{
-    // const socket = socketClient("http://192.168.0.101:5000",{
+    const socket = socketClient("https://kma-network.herokuapp.com",{
       transports: ["websocket"]
     });
     dispatch({type: GLOBAL_TYPES.SOCKET, payload: socket})
