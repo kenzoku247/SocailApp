@@ -1,5 +1,5 @@
 import express from 'express'
-import CommentCtrl from '../Controllers/commentCtrl.js'
+import CommentCtrl from '../Controllers/CommentCtrl.js'
 import Auth from '../Middleware/Auth.js'
 
 const router = express.Router()
