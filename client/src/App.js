@@ -21,6 +21,7 @@ import ActivationEmail from './pages/auth/ActivationEmail';
 import SocketClient from './SocketClient';
 import Redirect from './components/Redirect/Redirect';
 import AdminPage from './pages/admin/AdminPage';
+import About from './pages/about/About';
 
 function App() {
   const {authData} = useSelector((state)=>state.auth)
@@ -77,6 +78,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={authData.token ? <Home/> : <Auth/>} />
         <Route path="/forgot" element={authData.token  ? <NotFound/> : <ForgotPassword/>} />
+        <Route path="/about" element={authData.token  ? <About/> : <NotFound/>} />
         <Route path="/api/reset/:token" exact element={<ResetPassword/>} />
         <Route path="/api/activate/:activation_token" exact element={<ActivationEmail/>}/>
 
