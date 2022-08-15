@@ -11,8 +11,6 @@ const FriendsRequest = ({user, setShowFollowers, setShowFollowings, location}) =
   const { profile, socket } = useSelector(state => state)
   const { authData } = useSelector(state => state.auth)
   const [newUser, setNewUser] = useState({})
-  console.log(authData.user);
-  console.log(user);
     useEffect( () => {
         if (!user._id) {
             const fetchData = async () => {

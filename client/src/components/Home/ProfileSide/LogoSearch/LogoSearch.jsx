@@ -19,13 +19,13 @@ const LogoSearch = ({setRefresh, location}) => {
           </Link>
         : <img src={Logo} alt="" onClick={() => setRefresh(true)}/>
         }
-        <div className="Search">
+        <div className="SearchHeader">
           <button onClick={() => setOnSearch(true)}>
             #Explore
           </button>
-            <div className="s-icon"onClick={() => setOnSearch(true)}>
-                <UilSearch />
-            </div>
+          <div className="s-icon"onClick={() => setOnSearch(true)}>
+              <UilSearch />
+          </div>
         </div>
         <SearchModal onSearch={onSearch} setOnSearch={setOnSearch} authData={authData}/>
     </div>

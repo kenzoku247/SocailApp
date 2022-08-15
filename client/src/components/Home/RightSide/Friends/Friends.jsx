@@ -13,7 +13,6 @@ import FriendsRequestModal from './FriendsRequestModal/FriendsRequestModal';
 
 const Friends = () => {
     const {authData} = useSelector(state => state.auth)
-    const { profile } = useSelector(state => state)
     const theme = useMantineTheme();
     const dispatch = useDispatch()
     const [onSearch, setOnSearch] = useState(false)
@@ -100,10 +99,10 @@ const Friends = () => {
                 {
                     (users && showNotice) && users.map(user => (
                         <Users
-                        key={user._id} 
-                        user={user} 
-                        border="border"
-                        location="Friends"
+                            key={user._id} 
+                            user={user} 
+                            border="border"
+                            location="Friends"
                         />
                     ))
                 }

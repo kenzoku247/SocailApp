@@ -106,6 +106,7 @@ export const updateProfileUser = ({userData, avatar, backgroundCover, authData})
 
 export const follow = ({users, user, authData, socket}) => async (dispatch) => {
     let newUser;
+    console.log(user);
     
     if(users.every(item => item._id !== user._id)){
         newUser = {...user, followers: [...user.followers, authData.user]}
@@ -314,7 +315,6 @@ export const cancelFriendsRequest = ({users, user, authData, socket}) => async (
     }
 
     dispatch({ type: PROFILE_TYPES.UNFRIEND, payload: newUser })
-
     
     dispatch({
         type: GLOBAL_TYPES.AUTH, 

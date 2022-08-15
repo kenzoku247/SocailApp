@@ -12,11 +12,11 @@ const Dashboard = ({admin, dispatch, authData, socket}) => {
         <div className="BodyDashboard">
           <div className='TotalUsers'>
             <div><img src={User} alt="" /></div>
-            <h3>{`Total Users: ${admin.users.length}`}</h3>
+            <h5>{`Total Users: ${admin.users.length}`}</h5>
           </div>
           <div className='TotalPosts'> 
             <div><img src={Post} alt="" /></div>
-            <h3>{`Total Posts: ${admin.posts.length}`}</h3>
+            <h5>{`Total Posts: ${admin.posts.length}`}</h5>
           </div>
         </div>
         <div className="ChartRealtime">

@@ -11,7 +11,6 @@ import Friend1 from '../../../images/friends1.png'
 import Friend2 from '../../../images/friends2.png'
 import SavedPost from '../../../images/saved.png'
 import { useDispatch, useSelector } from "react-redux";
-import SettingModal from "../../SettingModal/SetttingModal";
 import { logout } from "../../../redux/actions/authAction";
 import Friends from "./Friends/Friends";
 import Chat from './Chat/Chat'

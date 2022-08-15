@@ -1,6 +1,7 @@
 .LogoSearch {
     /* display: flex; */
     gap: 0.75rem;  
+    width: 100%;
     
 }
 
@@ -17,20 +18,21 @@
 }
 
 
-.Search {
+.SearchHeader {
     display: flex;
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 5px;
     width: 100%;
+    justify-content: space-between;
     
 }
 
-.Search>button {
+.SearchHeader>button {
     background-color: transparent;
     border: none;
     outline: none;
-    width: 11.5rem;
+    width: 100%;
     text-align: left;
 }
 

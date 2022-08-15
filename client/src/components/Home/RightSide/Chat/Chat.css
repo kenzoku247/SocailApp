@@ -3,6 +3,7 @@
     height: 500px;
     position: fixed;
     bottom: 0;
+    right: 7px;
     background: linear-gradient(to left, #9fa5d5, #e8f5c8);
     border-radius: 8px;
     padding: 1rem;
@@ -58,7 +59,10 @@
     display: flex;
     gap: 1rem;
     justify-content: space-between;
-    /* padding: 0 0.5rem; */
+}
+
+.Chat_Friend>h5 {
+    word-wrap:break-word;
 }
 
 .Friend {

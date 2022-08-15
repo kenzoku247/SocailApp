@@ -329,7 +329,7 @@ const Chat = ({openChat,setOpenChat}) => {
         { showChat && message.users.find(user => user._id === idFriend) && 
             <div className="Conversation">
                 <div className="Chat_Friend">
-                    <h3>{message.users.find(user => user._id === idFriend).fullName}</h3>
+                    <h5>{message.users.find(user => user._id === idFriend).fullName}</h5>
                     <div className="Chat_Menu">
                         <img src={Call} alt="Call" />
                         <img src={Video} alt="Video" />

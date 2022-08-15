@@ -9,9 +9,6 @@ const InfoCard = ({id, authData, profile, dispatch}) => {
   const [onEdit, setOnEdit] = useState(false);
   const [userData, setUserData] = useState([])
 
-  // const handleLogout =() => {
-  //   dispatch(logout())
-  // }
   useEffect(() => {
     if(id === authData.user._id){
         setUserData([authData.user])

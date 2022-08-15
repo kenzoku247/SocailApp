@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: 1rem;
 }
 
 .Friends_Header>h3 {
@@ -55,4 +56,10 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
+}
+
+.users {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }

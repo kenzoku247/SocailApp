@@ -7,3 +7,46 @@
     overflow-x: hidden;
     height: 100vh;
 }
+
+.ActionButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    gap: 1rem;
+    background-color: var(--cardColor);
+    border-radius: 10px;
+}
+
+.ActionButton>div {
+    flex: 1 ;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.5rem;
+    align-items: center;
+}
+
+.ActionButton>div>h5 {
+    text-align: center;
+}
+
+.Waiting {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.Waiting>button {
+    height: 55px;
+    
+}
+
+.AddFriendButton>button {
+    height: 55px;
+}
+
+.FollowButton>button {
+    width: 100%;
+    height: 55px;
+}

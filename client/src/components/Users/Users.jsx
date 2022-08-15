@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { acceptFriendsRequest, cancelFriendsRequest, follow, friendRequest, refuseFriendsRequest, unFollow, unFriend } from '../../redux/actions/profileAction';
+import { follow, friendRequest, unFollow, unFriend } from '../../redux/actions/profileAction';
 
 import './Users.css'
 
@@ -60,7 +60,9 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
     await dispatch(unFriend({users: profile.users, user, authData, socket}))
     setLoad(false)
   }
+
   return (
+    (!waitToAccept &&
     <div className="follower">
         <div>
           <img src={
@@ -82,9 +84,10 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
             ( location === "Friends"
               ? (!friended
                 ? (waitToAccept 
-                  ? ""
+                  ? 
+                    ""
                   : <button className="button fc-button"
-                    onClick={handleAddFriend}>
+                    onClick={handleAddFriend} style={{height:""}}>
                     Add Friend
                     </button> 
                     )
@@ -106,6 +109,7 @@ const Users = ({user, setShowFollowers, setShowFollowings, location}) => {
             : ""
         }
     </div>
+    )
   )
 }
 
