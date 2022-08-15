@@ -11,10 +11,11 @@ const Home = () => {
   const dispatch = useDispatch()
 
   const [refresh, setRefresh] = useState(false)
+  console.log(refresh);
 
   return (
     <div className='Home'>
-        <ProfileSide className="ProfileSide" setRefresh={setRefresh}/>
+        <ProfileSide className="ProfileSide" setRefresh={setRefresh} location="home"/>
         <PostSide className="PostSide" refresh={refresh} setRefresh={setRefresh} location = {"home"} authData={authData} profile={profile} dispatch={dispatch} id={authData.user._id}/>
         <RightSide className="RightSide"/>
     </div>

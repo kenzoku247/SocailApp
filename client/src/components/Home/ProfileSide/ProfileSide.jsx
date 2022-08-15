@@ -6,7 +6,7 @@ import LogoSearch from './LogoSearch/LogoSearch'
 import ProfileCard from './ProfileCard/ProfileCard'
 import './ProfileSide.css'
 
-const ProfileSide = ({refresh, setRefresh}) => {
+const ProfileSide = ({refresh, setRefresh,location}) => {
   const { profile } = useSelector(state => state)
   const { authData } = useSelector(state => state.auth)
   const dispatch = useDispatch()
@@ -14,7 +14,7 @@ const ProfileSide = ({refresh, setRefresh}) => {
   const {id} = useParams()
   return (
     <div className='ProfileSide'>
-        <LogoSearch refresh={refresh} setRefresh={setRefresh} location="profile"/>
+        <LogoSearch refresh={refresh} setRefresh={setRefresh} location={location}/>
         <ProfileCard key={ id } ProfilePage={false} id ={_id} profile={profile} authData={authData} dispatch={dispatch}/>
         <FollowersCard authData={authData}/>
     </div>
