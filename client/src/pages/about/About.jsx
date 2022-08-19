@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './About.css'
-import Avatar1 from '../../images/img1.png'
-import Avatar2 from '../../images/img2.png'
-import Avatar3 from '../../images/img3.png'
+import Avatar1 from '../../images/avatarPhuc.jpg'
+import Avatar2 from '../../images/avatarHiep.jpg'
+import Avatar3 from '../../images/avatarTruong.jpg'
 import Facebook from '../../images/facebook.png'
 import Gmail from '../../images/gmail.png'
 import Back from '../../images/arrowBack.png'
@@ -16,8 +16,14 @@ const About = () => {
   const { authData } = useSelector(state => state.auth)
   const { _id } = authData.user
   const githubLink ='https://github.com/kenzoku247/SocialApp'
-  const backendLink = ''
-  const frontendLink = ''
+  const backendLink = 'https://github.com/devat-youtuber/MERN-Stack-Build-a-social-media-app'
+  const frontendLink = 'https://github.com/ZainRk/SocialMedia-Frontend'
+  const facebookPhuc = 'https://www.facebook.com/hogfuc'
+  const gmailPhuc = 'vuphuc365@gmail.com'
+  const facebookHiep= 'https://www.facebook.com/profile.php?id=100007126178725'
+  const gmailHiep = ''
+  const facebookTruong = 'https://www.facebook.com/Narutobu'
+  const gmailTruong = ''
   const [content, setContent] = useState('')
 
   const dispatch = useDispatch()
@@ -45,33 +51,33 @@ const About = () => {
             <div className="ImagesTeam">
               <div className='HalfCircle'></div>
               <img src={Avatar1} alt="" />
-              <h4 >V H P</h4>
+              <h4 >Vũ Hồng Phúc</h4>
               <h6>Web Develop</h6>
               <div className='LinkInfo'>
-                <a href='https://www.facebook.com/hogfuc'><img src={Facebook} alt="" /></a>
-                <a href=""><img src={Gmail} alt="" /></a>
+                <a href={facebookPhuc}><img src={Facebook} alt="" /></a>
+                <a href={`mailto:${gmailPhuc}`}><img src={Gmail} alt="" /></a>
                 <div className='Rectangle_IT'></div> 
               </div>
             </div>
             <div className="ImagesTeam">
               <div className='HalfCircle'></div>
               <img src={Avatar2} alt="" />
-              <h4>N V H</h4>
-              <h6>Diagram</h6>
+              <h4>Nguyễn Văn Hiệp</h4>
+              <h6>Diagram and Presentation</h6>
               <div className='LinkInfo'>
-                <a href='https://www.facebook.com/profile.php?id=100007126178725'><img src={Facebook} alt="" /></a>
-                <a href=""><img src={Gmail} alt="" /></a>
+                <a href={facebookHiep}><img src={Facebook} alt="" /></a>
+                <a href={gmailHiep}><img src={Gmail} alt="" /></a>
                 <div className='Rectangle_IT'></div>
               </div>
             </div>
             <div className="ImagesTeam">
               <div className='HalfCircle'></div>
               <img src={Avatar3} alt="" />  
-              <h4>T Đ T</h4>
+              <h4>Trịnh Đức Trường</h4>
               <h6>Slide and Report</h6>
               <div className='LinkInfo'>
-                <a href='https://www.facebook.com/Narutobu'><img src={Facebook} alt="" /></a>
-                <a href=""><img src={Gmail} alt="" /></a>
+                <a href={facebookTruong}><img src={Facebook} alt="" /></a>
+                <a href={gmailTruong}><img src={Gmail} alt="" /></a>
                 <div className='Rectangle_IT'></div>
               </div>
             </div>
@@ -105,7 +111,7 @@ const About = () => {
               <li>Back-end: <a href={`${backendLink}`}>{backendLink}</a></li>
               <li>Front-end: <a href={`${frontendLink}`}>{frontendLink}</a></li>
             </ul>
-            <h5>Source Code được public trên Github: <a href={`${githubLink}`}>{githubLink}</a></h5>
+            <h5>Source Code sẽ được public trên Github vào ngày 24/08/2022.</h5>
             <h5>Sau cùng, nhóm xin chân thành cảm ơn mọi người đã chú ý, quan tâm và góp ý.</h5>
           </div>
         </div>

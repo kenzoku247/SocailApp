@@ -36,13 +36,14 @@
 }
 
 .Chat_Text {
-    background-color: bisque;
+    background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
     padding: 0.5rem;
-    border-radius: 10px;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
 }
 
 .Chat_Text_Reverse {
-    background-color:aqua;
+    background: var(--buttonBg);
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
 }
 
 .Chat_Avatar {

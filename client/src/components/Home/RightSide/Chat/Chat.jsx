@@ -245,8 +245,6 @@ const Chat = ({openChat,setOpenChat}) => {
         
     },[idFriend, dispatch, authData, message.data])
 
-    console.log(message);
-
   return (
     <div className='Chat'>
         <div className="Chat_Header">
@@ -265,7 +263,7 @@ const Chat = ({openChat,setOpenChat}) => {
                             ref={ref}
                             />
                         { search && 
-                        <img src={Delete} alt="" onClick={() => {setSearch('');ref.current.focus();}}/>
+                        <img src={Delete} alt="" style={{"cursor":"pointer"}} onClick={() => {setSearch('');ref.current.focus();}}/>
                         }
                     </div>
                 </form>
@@ -331,9 +329,9 @@ const Chat = ({openChat,setOpenChat}) => {
                 <div className="Chat_Friend">
                     <h5>{message.users.find(user => user._id === idFriend).fullName}</h5>
                     <div className="Chat_Menu">
-                        <img src={Call} alt="Call" />
-                        <img src={Video} alt="Video" />
-                        <img src={Trash} alt="Trash" onClick={handleDeleteConversation}/>
+                        <img src={Call} style={{"cursor":"pointer"}} alt="Call" />
+                        <img src={Video} style={{"cursor":"pointer"}} alt="Video" />
+                        <img src={Trash} alt="Trash" style={{"cursor":"pointer"}} onClick={handleDeleteConversation}/>
                     </div>
                 </div>
                 <div className="Chat_Area" >
@@ -392,19 +390,19 @@ const Chat = ({openChat,setOpenChat}) => {
                         </input>
                     </div>
                     <div className='Emoji_Chat'>
-                        <img src={Smile} style={{width:"25px", height:"25px"}} alt="" onClick={e => setEmojiOpened((prev) => !prev)}/>
+                        <img src={Smile} style={{width:"25px", height:"25px","cursor":"pointer"}} alt="" onClick={e => setEmojiOpened((prev) => !prev)}/>
                         <div className="Picker_Chat">
                             {emojiOpened ? <Picker  onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_LIGHT}/> : ""}
                         </div>
                     </div>
                     <div className="Content_Media">
                         <label htmlFor="file-input">
-                            <img src={Photo} alt="" style={{width:"25px", height:"25px"}}/>
+                            <img src={Photo} alt="" style={{width:"25px", height:"25px","cursor":"pointer"}}/>
                         </label>
                         <input type="file" name="file" id="file-input" multiple accept="image/*,video/*" onClick={() => setEmojiOpened(false)} onChange={handleChangeMedia}/>
                     </div>
                     <div className="Send">
-                        <img src={Send} alt="" style={{width:"25px", height:"25px"}} onClick={handleSubmit} />
+                        <img src={Send} alt="" style={{width:"25px", height:"25px","cursor":"pointer"}} onClick={handleSubmit} />
 
                     </div>
                 </form>
