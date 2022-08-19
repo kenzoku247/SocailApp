@@ -2,8 +2,9 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ADMIN_TYPES, deleteUser, getAllPosts, getAllUsers, logout, setRole } from '../../redux/actions/adminAction'
+import { ADMIN_TYPES, deleteUser, getAllFeedbacks, getAllPosts, getAllUsers, logout, setRole } from '../../redux/actions/adminAction'
 import Dashboard from './Dashboard'
+import FeedbackManager from './FeedbackManager'
 import PostManager from './PostManager'
 import UserManager from './UserManager'
 
@@ -25,6 +26,10 @@ const Manager = () => {
 
     useEffect(() => {
         dispatch(getAllPosts({authData}))
+    },[title, dispatch, authData, admin.loading])
+
+    useEffect(() => {
+        dispatch(getAllFeedbacks({authData}))
     },[title, dispatch, authData, admin.loading])
     
   return (
@@ -51,15 +56,19 @@ const Manager = () => {
                     <button onClick={() => (
                         setTitle('Posts Manager')
                     )}>Manager Posts</button>
+                    <button onClick={() => (
+                        setTitle('Feedbacks Manager')
+                    )}>Manager Feedbacks</button>
                 </div>
 
 
             </div>
             <div className="LeftManager">
                 <div className="ManagerHeader"> 
+                    {title === "Dashboard" && <Dashboard admin={admin} dispatch={dispatch} authData={authData} socket={socket}/>}
                     {title === "Users Manager" && <UserManager admin={admin} dispatch={dispatch} authData={authData} socket={socket}/>}
                     {title === "Posts Manager" && <PostManager admin={admin} dispatch={dispatch} authData={authData} socket={socket}/>}
-                    {title === "Dashboard" && <Dashboard admin={admin} dispatch={dispatch} authData={authData} socket={socket}/>}
+                    {title === "Feedbacks Manager" && <FeedbackManager admin={admin} dispatch={dispatch} authData={authData} socket={socket}/>}
                 </div>
             </div>
         </div>

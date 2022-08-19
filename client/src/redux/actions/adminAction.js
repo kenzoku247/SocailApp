@@ -6,6 +6,7 @@ export const ADMIN_TYPES = {
     LOAD_USERS: "LOAD_USERS",
     ADMIN_GET_USERS: "ADMIN_GET_USERS",
     ADMIN_GET_POSTS: "ADMIN_GET_POSTS",
+    ADMIN_GET_FEEDBACKS: "ADMIN_GET_FEEDBACKS",
     AUTH: "AUTH_ADMIN",
     AUTH_TOKEN: "AUTH_TOKEN"
 }
@@ -135,6 +136,26 @@ export const getAllPosts = ({authData}) => async (dispatch) => {
     }
 }
 
+export const getAllFeedbacks = ({authData}) => async (dispatch) => {
+    try {
+        dispatch({type: ADMIN_TYPES.LOAD_USERS, payload: true})
+        const res = getAdminDataAPI('feedback' , authData.token)
+        const feedbacks = await res
+        dispatch({
+            type: ADMIN_TYPES.ADMIN_GET_FEEDBACKS,
+            payload: feedbacks.data
+            
+        })
+
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: error.response}
+        })
+    }
+}
+
 export const searchUser = ({search,authData}) => async (dispatch) => {
     try {
         const res = getAdminDataAPI(`search?fullName=${search}` , authData.token)
@@ -230,6 +251,42 @@ export const deletePost = ({id,admin,authData}) => async (dispatch) => {
         })
 
         await deleteAdminDataAPI(`deletePost/${id}` , authData.token)
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: error.response}
+        })
+    }
+}
+
+export const solvedFeedback = ({id,newSolved,admin,authData}) => async (dispatch) => {
+    try {
+        const res = await patchAdminDataAPI(`solvedFeedback/${id}` ,{newSolved:newSolved}, authData.token)
+        const newFeedback = res.data.newFeedback
+        dispatch({
+            type: ADMIN_TYPES.ADMIN_GET_FEEDBACKS,
+            payload: {feedbacks: EditData(admin.feedbacks, id, newFeedback)}
+        })
+
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: GLOBAL_TYPES.ALERT, 
+            payload: {error: error.response}
+        })
+    }
+}
+
+export const deleteFeedback = ({id,admin,authData}) => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: ADMIN_TYPES.ADMIN_GET_FEEDBACKS,
+            payload: {feedbacks: DeleteData(admin.feedbacks, id)}
+        })
+
+        await deleteAdminDataAPI(`deleteFeedback/${id}` , authData.token)
     } catch (error) {
         console.log(error);
         dispatch({

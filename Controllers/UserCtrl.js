@@ -1,4 +1,5 @@
 import User from '../Models/UserModel.js'
+import Feedback from '../Models/FeedbackModel.js'
 
 const UserCtrl = {
     searchFullName: async (req, res) => {
@@ -187,6 +188,22 @@ const UserCtrl = {
                 users,
                 result: users.length
             })
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    sendFeedback : async (req, res) => { 
+        try {
+            const { id, content } = req.body
+            if (!content) return res.status(400).json({msg: "If you want to send feedback, please add your feedback content!"})
+
+            await Feedback.create({
+                sender:id,
+                content: content
+            })
+
+            res.json({msg: "Send feedback success!"})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})

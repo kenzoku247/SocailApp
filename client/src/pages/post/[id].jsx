@@ -34,7 +34,7 @@ const Profile = () => {
     // console.log(post);
   return (
     <div className="Home">
-        <ProfileSide/>
+        <ProfileSide location="profile"/>
         {
             post.length === 0 &&
             <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />

@@ -36,6 +36,7 @@ function App() {
     dispatch(refreshToken())
 
     const socket = socketClient("https://kma-network.herokuapp.com",{
+    // const socket = socketClient("http://localhost:3000",{
       transports: ["websocket"]
     });
     dispatch({type: GLOBAL_TYPES.SOCKET, payload: socket})
@@ -82,7 +83,7 @@ function App() {
         <Route path="/api/reset/:token" exact element={<ResetPassword/>} />
         <Route path="/api/activate/:activation_token" exact element={<ActivationEmail/>}/>
 
-        <Route exact path='/admin/:id' element={(authData.user && (authData.user.role !== "Admin" ? <Redirect/> : <AdminPage/>))}/>
+        <Route exact path='/admin/:id' element={(authData.user && (authData.user.role !== "Admin" ? <NotFound/> : <AdminPage/>))}/>
         <Route exact path="/:page" element={firstLogin ? <PageRender/> : <Redirect/>}/>
         <Route exact path="/:page/:id" element={firstLogin ? <PageRender/> : <Redirect/>}/>
       </Routes>

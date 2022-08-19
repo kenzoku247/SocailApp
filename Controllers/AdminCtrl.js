@@ -1,6 +1,7 @@
 import Admin from "../Models/AdminModel.js";
 import User from "../Models/UserModel.js";
 import Post from "../Models/PostModel.js";
+import Feedback from "../Models/FeedbackModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import SendPasswordToAdmin from './SendPasswordToAdmin.js'
@@ -52,10 +53,10 @@ const AdminCtrl = {
             } else {
                 if(password !== adminUser.password) {
                     if (Notries === 0) {
-                        await adminUser.update({waitTime: new Date().getTime() + 1000 * 60 * 5})
+                        await adminUser.updateOne({waitTime: new Date().getTime() + 1000 * 60 * 5})
                         return res.status(400).json({msg: "Cannot login for 5 minutes."})
                     } else {
-                        await adminUser.update({tries: Notries - 1})
+                        await adminUser.updateOne({tries: Notries - 1})
                         return res.status(400).json({msg: "Password is incorrect."})
                     }
     
@@ -214,6 +215,37 @@ const AdminCtrl = {
     deletePost: async (req, res) => {
         try {
             await Post.findByIdAndDelete(req.params.id)
+
+            res.json({msg: "Deleted Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getAllFeedbacks : async (req, res) => {
+        try {
+            const feedbacks = await Feedback.find()
+
+            res.json({feedbacks})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    solvedFeedback: async (req, res) => {
+        try {
+            const {newSolved} = req.body
+            const newFeedback = await Feedback.findByIdAndUpdate(
+                req.params.id,
+                {solved: newSolved},
+                {new: true}
+            )
+            res.json({newFeedback})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    deleteFeedback: async (req, res) => {
+        try {
+            await Feedback.findOneAndDelete(req.params.id)
 
             res.json({msg: "Deleted Success!"})
         } catch (err) {

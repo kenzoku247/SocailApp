@@ -35,6 +35,7 @@ const HTTP = createServer(app)
 const io =  new Server(HTTP,    {
     cors: {
       origin: 'https://kma-network.herokuapp.com',
+    //   origin: 'http://localhost:3000',
     }
 })
 

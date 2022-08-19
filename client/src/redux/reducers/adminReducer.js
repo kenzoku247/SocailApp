@@ -5,6 +5,7 @@ const initialState = {
     loading: false,
     users : [],
     posts : [],
+    feedbacks : [],
     token: ''
 }
 
@@ -19,6 +20,11 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [...action.payload.posts]
+            }
+        case ADMIN_TYPES.ADMIN_GET_FEEDBACKS:
+            return {
+                ...state,
+                feedbacks: [...action.payload.feedbacks]
             }
         case ADMIN_TYPES.LOAD_USERS:
             return {

@@ -1,3 +1,232 @@
+.blur {
+    display: none;
+}
+
 .About {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background: #C9D6FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #E2E2E2, #C9D6FF); 
+    background: linear-gradient(to bottom, #E2E2E2, #C9D6FF);
+    gap: 0.5rem; 
+}
+
+.HeaderAbout { 
+    height: auto;
+    display: flex;
+}
+
+.HeaderAbout>a {
+    display: flex;
+    align-items: center;
+    padding-left: 3rem;
+    padding-top: 1rem;
+    gap: 1rem;
+    width: auto;
+}
+
+.HeaderAbout>a>img {
+    width: 24px;
     
+}
+
+.HeaderAbout>a {
+    text-decoration: none;
+    color: black;
+}
+
+.HeaderAbout>a>h5 {
+    font-weight:400;
+    margin-bottom: unset;
+}
+
+.BodyAbout {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.LeftAbout {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.CardsTeam {
+    display: flex;
+    gap: 1rem;  
+    width: 100%;
+    justify-content: center;
+}
+
+.ImagesTeam {
+    width: 200px;
+    height: 300px;
+    background: #d9a7c7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #fffcdc, #d9a7c7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #fffcdc, #d9a7c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ImagesTeam>img {
+    max-width: 128px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.ImagesTeam:hover>img{
+    background-color: aqua;
+    /* border: red 1px solid; */
+    padding: 1rem;
+    border-radius: 50%;
+    transition: .5s linear;
+}
+
+.ImagesTeam:hover .LinkInfo{
+    visibility: visible;
+    opacity: 1;
+}
+
+.ImagesTeam:hover .HalfCircle {
+    visibility: visible;
+    opacity: 1;
+}
+
+.ImagesTeam:hover .Rectangle_IT {
+    visibility: visible;
+    opacity: 1;
+}
+
+.Rectangle_IT {
+    width:300px;
+    height:80px;
+    position:absolute;
+    background-color: deepskyblue;
+    bottom:0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.HalfCircle {
+    width:300px;
+    height:300px;
+    position:absolute;
+    background-color: rgba(0,191,255,0.5);
+    top:-200px;
+    border-radius:50%;
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.LinkInfo {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    gap: 2rem;
+}
+
+.LinkInfo>a {
+    z-index: 1;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.LinkInfo>a:hover {
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.LinkInfo>a>img {
+    width: 32px;
+    
+}
+
+.RightAbout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.BoxContent {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    gap: 1rem;
+    background-color:blanchedalmond;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.BoxContent>h5 {
+    font-weight: 300;
+    text-align: center;
+}
+
+.BoxContent>textarea {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    text-align: justify;
+}
+
+.SchoolInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    background-color: aqua;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.SchoolInfo>a {
+    text-decoration: none;
+    color: black;
+}
+
+.SchoolInfo>a>img {
+    height: 150px;
+    width: auto;
+    object-fit: cover;
+}
+
+.SourceCode {
+    display: flex;  
+    flex-direction: column;
+    width: 100%;
+    /* align-items: center; */
+    
+}
+
+.SourceCode>h5 {
+    font-weight: normal;
 }

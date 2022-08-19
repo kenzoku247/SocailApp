@@ -4,6 +4,7 @@ import { GLOBAL_TYPES } from '../../redux/actions/globalTypes'
 import { getAdminDataAPI } from '../../utils/fetchData'
 import { imageShow, videoShow } from '../../utils/mediaShow'
 import './Admin.css'
+import Sort from '../../images/sort.png'
 
 const PostManager = ({admin, dispatch, authData, socket}) => {
 
@@ -11,12 +12,42 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
     const [users, setUsers] = useState([])
     const [readMore, setReadMore] = useState(false)
     const [posts, setPosts] = useState([])
+    const [sortUsers, setSortUsers] = useState(false)
+    const [sortLikes, setSortLikes] = useState(false)
+    const [sortComments, setSortComments] = useState(false)
 
     useEffect(() => {
         if (search.length === 0) {
             setUsers([])
         }
     }, [search.length])
+
+    const handleSortUsers = () => {
+        if (sortUsers) {
+            admin.posts = admin.posts.sort((a, b) => b.user.replace(/[a-z]/g, '') - a.user.replace(/[a-z]/g, ''))
+        } else {
+            admin.posts = admin.posts.sort((a, b) => a.user.replace(/[a-z]/g, '') - b.user.replace(/[a-z]/g, ''))
+        }
+        setSortUsers(!sortUsers)
+    }
+
+    const handleSortLikes = () => {
+        if (sortLikes) {
+            admin.posts = admin.posts.sort((a, b) => b.likes.length - a.likes.length)
+        } else {
+            admin.posts = admin.posts.sort((a, b) => a.likes.length - b.likes.length)
+        }
+        setSortLikes(!sortLikes)
+    }
+
+    const handleSortComments = () => {
+        if (sortComments) {
+            admin.posts = admin.posts.sort((a, b) => b.comments.length - a.comments.length)
+        } else {
+            admin.posts = admin.posts.sort((a, b) => a.comments.length - b.comments.length)
+        }
+        setSortComments(!sortComments)
+    }
 
     const handleAddPost = (id) => {
         if (posts.includes(id))
@@ -73,11 +104,38 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
             <div className="PostListField">
                 <div className="FieldPostName">
                     <h6></h6>
-                    <h6>User</h6>
+                    <div className="SortContent">
+                        <h6>User</h6>
+                        <img 
+                            src={Sort} 
+                            alt="" 
+                            className='SortIcon' 
+                            onClick={handleSortUsers}
+                            style={{"cursor":"pointer"}}
+                        />
+                    </div>
                     <h6>Content</h6>
                     <h6>Images</h6>
-                    <h6>Likes</h6>
-                    <h6>Comments</h6>
+                    <div className="SortContent">
+                        <h6>Likes</h6>
+                        <img 
+                            src={Sort} 
+                            alt="" 
+                            className='SortIcon' 
+                            onClick={handleSortLikes}
+                            style={{"cursor":"pointer"}}
+                        />
+                    </div><div className="SortContent">
+                        <h6>Comments</h6>
+                        <img 
+                            src={Sort} 
+                            alt="" 
+                            className='SortIcon' 
+                            onClick={handleSortComments}
+                            style={{"cursor":"pointer"}}
+                        />
+                    </div>
+                    
                     <h6>Modify</h6>
                 </div>
                 <div className="InfoPost">
@@ -95,7 +153,7 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
                                     : readMore ? data.content + ' ' : data.content.slice(0, 24) + '...'
                                     }
                                     {
-                                        data.content.length > 24 &&
+                                        data.content.length >= 24 &&
                                         <span className="readMore" onClick={() => setReadMore(!readMore)} style={{cursor:"pointer",color:"blue"}}>
                                             {readMore ? '  Hide content' : '  Read more'}
                                         </span>
@@ -126,8 +184,8 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
                                         </div>
                                     ))}
                                 </div>
-                                <h6>{data.likes.length}</h6>
-                                <h6>{data.comments.length}</h6>
+                                <h6 style={{"justifyContent":"center"}}>{data.likes.length}</h6>
+                                <h6 style={{"justifyContent":"center"}}>{data.comments.length}</h6>
                                 <button className='button' onClick={() => handleDeletePost(data._id)}>Delete</button>
                             </div>
                         ))
@@ -175,15 +233,12 @@ const PostManager = ({admin, dispatch, authData, socket}) => {
                                         </div>
                                     ))}
                                 </div>
-                                <h6 >{post.likes.length}</h6>
-                                <h6 >{post.comments.length}</h6>
+                                <h6 style={{"justifyContent":"center"}}>{post.likes.length}</h6>
+                                <h6 style={{"justifyContent":"center"}}>{post.comments.length}</h6>
                                 <button className='button' onClick={() => handleDeletePost(post._id)}>Delete</button>
                             </div>
                         )
-                    }
-
-                    
-                    
+                    }  
                 </div>
             </div>
         </div>

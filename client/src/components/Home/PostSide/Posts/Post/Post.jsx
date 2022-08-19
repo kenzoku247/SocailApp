@@ -198,7 +198,7 @@ const Post = ({post, theme, user, location}) => {
             </span>
           </div>
           <div className='Share'>
-            <img src={Share} alt="" onClick={location === 'home' ? (() => setOnShare(true)) : undefined}/>
+            <img src={Share}style={{"cursor":"pointer"}} alt="" onClick={location === 'home' ? (() => setOnShare(true)) : undefined}/>
             <span style={ {color: "var(--gray)", fontSize: '12px'} }>
               Share
             </span>

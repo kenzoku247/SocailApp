@@ -1,6 +1,5 @@
 import React from 'react'
 import { Modal, useMantineTheme } from "@mantine/core";
-import { useDispatch } from 'react-redux';
 import {
     EmailShareButton, EmailIcon,
     FacebookShareButton, FacebookIcon,
@@ -10,7 +9,6 @@ import './ShareModal.css'
 
 const ShareModal = ({onShare, setOnShare, url}) => {
     const theme = useMantineTheme();
-    const dispatch = useDispatch();
   return (
     <Modal
       overlayColor={

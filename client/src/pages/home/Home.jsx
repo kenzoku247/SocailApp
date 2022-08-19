@@ -11,7 +11,6 @@ const Home = () => {
   const dispatch = useDispatch()
 
   const [refresh, setRefresh] = useState(false)
-  console.log(refresh);
 
   return (
     <div className='Home'>

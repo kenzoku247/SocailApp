@@ -27,6 +27,8 @@ router.patch('/user/:id/unFriend', Auth, UserCtrl.unFriend)
 
 router.get('/suggestionsUser', Auth, UserCtrl.suggestionsUser)
 
+router.post('/sendFeedback', Auth, UserCtrl.sendFeedback)
+
 
 
 export default router
