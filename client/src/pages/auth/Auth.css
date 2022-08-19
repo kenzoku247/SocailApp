@@ -195,6 +195,10 @@
     gap: 1rem;
 }
 
+.Redirect>span:hover {
+    color: blue;
+}
+
 .ForGot_Footer {
     display: flex;
     width: 100%;
