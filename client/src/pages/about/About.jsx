@@ -21,9 +21,9 @@ const About = () => {
   const facebookPhuc = 'https://www.facebook.com/hogfuc'
   const gmailPhuc = 'vuphuc365@gmail.com'
   const facebookHiep= 'https://www.facebook.com/profile.php?id=100007126178725'
-  const gmailHiep = ''
+  const gmailHiep = 'hiepga123409@gmail.com'
   const facebookTruong = 'https://www.facebook.com/Narutobu'
-  const gmailTruong = ''
+  const gmailTruong = 'nick190901@gmail.com'
   const [content, setContent] = useState('')
 
   const dispatch = useDispatch()
@@ -55,7 +55,8 @@ const About = () => {
               <h6>Web Develop</h6>
               <div className='LinkInfo'>
                 <a href={facebookPhuc}><img src={Facebook} alt="" /></a>
-                <a href={`mailto:${gmailPhuc}`}><img src={Gmail} alt="" /></a>
+                <a href={`mailto:${gmailPhuc}?subject=SendMail&body=Description`}><img src={Gmail} alt="" /></a>
+                {/* <a href={`mailto:${gmailPhuc}`}><img src={Gmail} alt="" /></a> */}
                 <div className='Rectangle_IT'></div> 
               </div>
             </div>
@@ -66,7 +67,7 @@ const About = () => {
               <h6>Diagram and Presentation</h6>
               <div className='LinkInfo'>
                 <a href={facebookHiep}><img src={Facebook} alt="" /></a>
-                <a href={gmailHiep}><img src={Gmail} alt="" /></a>
+                <a href={`mailto:${gmailHiep}`}><img src={Gmail} alt="" /></a>
                 <div className='Rectangle_IT'></div>
               </div>
             </div>
@@ -77,7 +78,7 @@ const About = () => {
               <h6>Slide and Report</h6>
               <div className='LinkInfo'>
                 <a href={facebookTruong}><img src={Facebook} alt="" /></a>
-                <a href={gmailTruong}><img src={Gmail} alt="" /></a>
+                <a href={`mailto:${gmailTruong}`}><img src={Gmail} alt="" /></a>
                 <div className='Rectangle_IT'></div>
               </div>
             </div>
