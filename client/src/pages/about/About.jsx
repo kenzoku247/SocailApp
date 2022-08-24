@@ -112,7 +112,7 @@ const About = () => {
               <li>Back-end: <a href={`${backendLink}`}>{backendLink}</a></li>
               <li>Front-end: <a href={`${frontendLink}`}>{frontendLink}</a></li>
             </ul>
-            <h5>Source Code sẽ được public trên Github vào ngày 24/08/2022.</h5>
+            <h5>Source Code được public trên Github: <a href={`${githubLink}`}>{githubLink}</a></h5>
             <h5>Sau cùng, nhóm xin chân thành cảm ơn mọi người đã chú ý, quan tâm và góp ý.</h5>
           </div>
         </div>

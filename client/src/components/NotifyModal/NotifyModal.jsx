@@ -8,6 +8,7 @@ import moment from 'moment'
 import Avatar from '../Avatar.jsx'
 import Circle from '../../images/circle.png'
 import Minimize from '../../images/minus.png'
+import defaultAvatar from '../../images/DefaultAvatar.jpg'
 
 const NotifyModal = () => {
     const { authData } = useSelector(state => state.auth)
@@ -65,11 +66,11 @@ const NotifyModal = () => {
 
                             <Link to={`${msg.url}`} className="Notify_Link"
                                 onClick={() => handleIsRead(msg)}>
-                                <Avatar src={msg.user.avatar} size="big-avatar" />
+                                <Avatar src={msg.user && ( msg.user.avatar ? msg.user.avatar : defaultAvatar)} size="big-avatar" />
 
                                 <div className='Notify_Content'>
                                     <div className=''>
-                                        <strong style={{fontSize:'14px'}}>{msg.user.fullName + ' '}</strong>
+                                        <strong style={{fontSize:'14px'}}>{msg.user && (msg.user.avatar ? msg.user.fullName + ' ': "Full Name")}</strong>
                                         <span style={{fontSize:'13px'}}>{msg.text}</span>
                                     </div>
                                     {msg.content && <small style={{fontSize:'12px'}}>{msg.content.length > 20 ? (msg.content.slice(0,20) + '...') : msg.content}</small>}
@@ -103,6 +104,7 @@ const NotifyModal = () => {
                         </small>
                         {/* </div> */}
                     </li>
+                    
                 ))
             }
 

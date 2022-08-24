@@ -149,7 +149,6 @@ const AuthCtrl = {
         try {
             const {email} = req.body
             const user = await User.findOne({email})
-            // console.log(user.password);
             if(!user) return res.status(400).json({msg: "This email does not exist."})
 
             if(user.isDisabled) return res.status(400).json({msg: "This account has been banned."})
