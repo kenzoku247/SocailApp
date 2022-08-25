@@ -70,7 +70,7 @@ const NotifyModal = () => {
 
                                 <div className='Notify_Content'>
                                     <div className=''>
-                                        <strong style={{fontSize:'14px'}}>{msg.user && (msg.user.avatar ? msg.user.fullName + ' ': "Full Name")}</strong>
+                                        <strong style={{fontSize:'14px'}}>{msg.user && (msg.user.fullName ? msg.user.fullName + ' ': "Full Name")}</strong>
                                         <span style={{fontSize:'13px'}}>{msg.text}</span>
                                     </div>
                                     {msg.content && <small style={{fontSize:'12px'}}>{msg.content.length > 20 ? (msg.content.slice(0,20) + '...') : msg.content}</small>}

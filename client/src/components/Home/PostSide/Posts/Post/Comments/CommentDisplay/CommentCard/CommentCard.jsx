@@ -10,6 +10,7 @@ import InputComment from './InputComment/InputComment'
 import CommentMenu from './CommentMenu/CommentMenu'
 import Picker, { SKIN_TONE_MEDIUM_LIGHT } from 'emoji-picker-react';
 import Smile from '../../../../../../../../images/smiling.png'
+import DefaultAvatar from '../../../../../../../../images/DefaultAvatar.jpg'
 
 
 const CommentCard = ({children, comment, post, commentId}) => {
@@ -86,7 +87,7 @@ const CommentCard = ({children, comment, post, commentId}) => {
   return (
     <div className='CommentCard' style={styleCard}>
         <div className="Comment_Header">
-            <img src={comment.user.avatar} alt="avatar" className='Avatar'/>
+            <img src={comment.user && (comment.user.avatar ? comment.user.avatar : DefaultAvatar)} alt="avatar" className='Avatar'/>
             <div className="NameUser">
                 <h6 >
                     <Link to={`/profile/${comment.user._id}`} className="text-dark">
