@@ -95,14 +95,14 @@
     margin-left: 24px;
 }
 
-.ImageModal {
+.ChangeImage {
     display: flex;
     gap: 1rem;
     /* justify-content:space-between; */
     align-items: center;
 }
 
-.ImageModal>label {
+.ChangeImage>label {
     display: flex;
     gap: 1rem;
 }

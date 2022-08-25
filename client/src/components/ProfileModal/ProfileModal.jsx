@@ -160,7 +160,7 @@ function ProfileModal({onEdit, setOnEdit, authData}) {
             </div>    
             
 
-            <div className="ImageModal">
+            <div className="ChangeImage">
                 <label htmlFor="Profile Image">
                     Profile Image
                     <input 
