@@ -44,8 +44,8 @@ const PostModal = () => {
       let newImages = []
       files.forEach(file => {
           if(!file) return err = "File does not exist."
-          if(file.size > 1024 * 1024 * 5){
-              return err = "The image/video largest is 5mb."
+          if(file.size > 1024 * 1024 * 10){
+              return err = "The image/video largest is 10mb."
           }
           return newImages.push(file)
       })
