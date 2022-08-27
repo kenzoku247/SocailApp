@@ -149,7 +149,9 @@ const PostModal = () => {
             <UilScenery />
             Photo
           </div>
-          <div className="option" style={{ color: "var(--video)" }}>
+          <div className="option" style={{ color: "var(--video)" }}
+          onClick={()=>refImage.current.click()}
+          >
             <UilPlayCircle />
             Video
           </div>{" "}
