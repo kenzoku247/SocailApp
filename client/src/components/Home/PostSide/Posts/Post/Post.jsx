@@ -28,7 +28,6 @@ const Post = ({post, theme, user, location}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {authData} = useSelector(state => state.auth)
-  const [URL, setURL] = useState(false)
   var guest
   if (id === authData.user._id) {
     guest = false
@@ -45,7 +44,7 @@ const Post = ({post, theme, user, location}) => {
   const [saved, setSaved] = useState(false)
   const [saveLoad, setSaveLoad] = useState(false)
 
-  console.log(checkURL(post.content));
+  // console.log(checkURL(post.content));
 
   const handleEditPost = () => {
     dispatch({ type: GLOBAL_TYPES.STATUS, payload: {...post, onEdit: true}})
@@ -186,9 +185,7 @@ const Post = ({post, theme, user, location}) => {
         </div>
         {
           post.images.length > 0 && 
-          // <div style={{alignItems:'center',justifyContent:'center',display:'flex',backgroundColor:'rgba(0,0,0,0.5)'}}>
-            <Carousel post={post} />
-          // </div>
+            <Carousel post={post} location={location} />
           
         }
 

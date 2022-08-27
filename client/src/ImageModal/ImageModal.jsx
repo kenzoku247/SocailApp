@@ -22,8 +22,16 @@ const ImageModal = ({openImage, setOpenImage, image}) => {
             }}
         >
             <div className='ImageModal'>
-
-                <img src={image} alt="" className='ImageOnModal'/>
+                {
+                    image && image.match(/video/i)
+                    ?   <video controls 
+                        // src={img.url} alt={img.url}
+                        className='ImageOnModal'>
+                            <source src={image} type="video/mp4"></source>
+                        </video>
+                    : <img src={image} alt="" className='ImageOnModal'/>
+                }
+                
             </div>
         </Modal>
     )

@@ -98,6 +98,14 @@
     background-color: rgba(116, 116, 116, 0.5);
 }
 
+.carousel-item>div {
+    /* position: relative; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(116, 116, 116, 0.5);
+}
+
 .Zoom_In>img {
     position: absolute;
     filter:invert();

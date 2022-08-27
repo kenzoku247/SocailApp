@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux'
 import ZoomIn from '../images/zoomIn.png'
 import ImageModal from '../ImageModal/ImageModal'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-const Carousel = ({post}) => {
+const Carousel = ({post,location}) => {
 
     const [image, setImage] = useState()
-
+    const {id} = useParams()
+    console.log(id);
     const [openImage, setOpenImage] = useState(false)
     const isActive = index => {
         if(index === 0) return "active";
@@ -32,16 +33,32 @@ const Carousel = ({post}) => {
                 {
                     post.images.map((img, index) => (
                         <div key={index} className={`carousel-item ${isActive(index)}`}  >
-                            <Link to={`/post/${post._id}`} className="d-flex">
-                                {
-                                    img.url.match(/video/i)
-                                    ? <video controls src={img.url} alt={img.url}
-                                    style={{filter: theme ? 'invert(1)' : 'invert(0)'}} />
+                            {
+                                id === undefined
+                                ?<Link to={`/post/${post._id}`} className="d-flex">
+                                    {
+                                        img.url.match(/video/i)
+                                        ? <video controls >
+                                                <source src={img.url} type="video/mp4"></source>
+                                            </video>
+                                        
+                                        : <img src={img.url}  alt={img.url}
+                                            style={{maxHeight:'70vh',width:'auto',maxWidth: '600px'}} />
+                                    }
+                                </Link>
+                                : 
+                                    <div className='d-flex'>
                                     
-                                    : <img src={img.url}  alt={img.url}
-                                    style={{filter: theme ? 'invert(1)' : 'invert(0)',maxHeight:'70vh',width:'auto',maxWidth: '600px'}} />
-                                }
-                            </Link>
+                                        {img.url.match(/video/i)
+                                        ? <video controls style={{"maxWidth":"100%"}}>
+                                                <source src={img.url} type="video/mp4"></source>
+                                            </video>
+                                        
+                                        : <img src={img.url}  alt={img.url}
+                                            style={{maxHeight:'70vh',width:'auto',maxWidth: '600px'}} />}
+                                    </div>
+                                
+                            }
                             <div className="Zoom_In">
                                 <img src={ZoomIn} alt="" onClick={() => {setOpenImage(true);setImage(img.url)}}/>
                             </div>
