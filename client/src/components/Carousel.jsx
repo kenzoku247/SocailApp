@@ -9,7 +9,7 @@ const Carousel = ({post,location}) => {
 
     const [image, setImage] = useState()
     const {id} = useParams()
-    console.log(id);
+    // console.log(id);
     const [openImage, setOpenImage] = useState(false)
     const isActive = index => {
         if(index === 0) return "active";
