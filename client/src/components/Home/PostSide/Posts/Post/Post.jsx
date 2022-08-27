@@ -20,6 +20,7 @@ import Comments from './Comments/Comments'
 import InputComment from './Comments/CommentDisplay/CommentCard/InputComment/InputComment'
 import ShareModal from '../../../../ShareModal/ShareModal'
 import LikesModal from '../../../../LikesModal'
+import { checkURL } from '../../../../../utils/checkURL'
 
 const Post = ({post, theme, user, location}) => {
   const {id} = useParams()
@@ -27,6 +28,7 @@ const Post = ({post, theme, user, location}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {authData} = useSelector(state => state.auth)
+  const [URL, setURL] = useState(false)
   var guest
   if (id === authData.user._id) {
     guest = false
@@ -42,6 +44,8 @@ const Post = ({post, theme, user, location}) => {
 
   const [saved, setSaved] = useState(false)
   const [saveLoad, setSaveLoad] = useState(false)
+
+  console.log(checkURL(post.content));
 
   const handleEditPost = () => {
     dispatch({ type: GLOBAL_TYPES.STATUS, payload: {...post, onEdit: true}})
@@ -104,7 +108,6 @@ const Post = ({post, theme, user, location}) => {
       await dispatch(unSavePost({post, authData}))
       setSaveLoad(false)
   }
-  // console.log(authData.user.saved);
   return (
     <div className='Post'>
         <div className="PostHeader">
@@ -152,12 +155,26 @@ const Post = ({post, theme, user, location}) => {
           </div>
         </div>
         <div className="Content">
-          <span style={{"textAlign":"justify"}}>
-              {
-                  post.content.length < 60 
-                  ? post.content 
-                  : readMore ? post.content + ' ' : post.content.slice(0, 60) + '.....'
-              }
+          {checkURL(post.content) 
+          ? <a href={post.content} style={{"textAlign":"justify"}}>
+            {
+              post.content.length < 60 
+              ? post.content 
+              : readMore ? post.content + ' ' : post.content.slice(0, 60) + '.....'
+            }
+            {
+                post.content.length > 60 &&
+                <span className="readMore" onClick={() => setReadMore(!readMore)} style={{cursor:"pointer",color:"blue"}}>
+                    {readMore ? '  Hide content' : '  Read more'}
+                </span>
+            }
+          </a>
+          : <span style={{"textAlign":"justify"}}>
+            {
+                post.content.length < 60 
+                ? post.content 
+                : readMore ? post.content + ' ' : post.content.slice(0, 60) + '.....'
+            }
             {
                 post.content.length > 60 &&
                 <span className="readMore" onClick={() => setReadMore(!readMore)} style={{cursor:"pointer",color:"blue"}}>
@@ -165,6 +182,7 @@ const Post = ({post, theme, user, location}) => {
                 </span>
             }
           </span>
+          }
         </div>
         {
           post.images.length > 0 && 
